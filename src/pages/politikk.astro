@@ -12,7 +12,8 @@ const fraasegner = await getCollection('fraasegner');
 const fraasegnerMetadata = await Promise.all(
 	fraasegner.map((fraasegn) => {
 		return {
-			title: fraasegn.data.title
+			title: fraasegn.data.title,
+			date: fraasegn.data.date,
 		}
 	})
 )
@@ -69,8 +70,7 @@ const politiskProgram = [
 
 <Layout currentPage='/politikk'>
 	<!--Hero-seksjon -->
-	<section class='grid grid-cols-1 md:grid-cols-2 bg-[var(--light-blue)]'>
-		<img src='/marentalar.jpg' />
+	<section class='grid grid-cols-1 md:grid-cols-2 bg-[var(--light-blue)] shadow-xl'>
 		<div class='flex justify-center mx-10 md:mx-auto my-10 md:my-auto text-left md:text-justify italic '>
 			<div class='flex flex-col w-full max-w-3xl gap-10'>
 				<h1 class='text-left md:text-center text-5xl md:text-7xl not-italic'>Den politiske verksemda vår</h1>
@@ -79,6 +79,7 @@ const politiskProgram = [
 				</p>
 			</div>
 		</div>
+		<img src='/marentalar.jpg' />
 	</section>
 	<!--Vanleg seksjon-->
 	<section class='flex flex-col text-center gap-[var(--global-gap)] margined'>
@@ -104,9 +105,9 @@ const politiskProgram = [
 		<div class='margined flex flex-col gap-[var(--hl-con-gap)]'>
 			<h1 class='text-7xl'>Fråsegner</h1>
 			<p class='italic'>NMU vedtar fråsegner om aktuelle tema</p>
-			<div>
+			<div class='grid gap-5'>
 				{fraasegnerMetadata.map((stmt, i) => (
-					<button id={`stmt-${i}`}>{stmt.title}</button>
+					<button id={`stmt-${i}`} class='w-3/4 mx-auto bg-[var(--light-grey)]'>{stmt.title}</button>
 				))}
 			</div>
 		</div>

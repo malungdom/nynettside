@@ -71,7 +71,7 @@ export default function FraasegnListe({ fraasegner }) {
                         <div style={{'display': 'flex', 'justify-content': 'center'}}>
                             <div style={{'width': '80%', 'margin-top': '3rem', 'margin-bottom': '3rem'}}>
                                 <h1>{title}</h1>
-                                <div dangerouslySetInnerHTML={{__html: text}} />
+                                <div style={{'font-size': '2rem'}} dangerouslySetInnerHTML={{__html: text}} />
                             </div>
                         </div>
                     </div>

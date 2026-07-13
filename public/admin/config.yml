@@ -10,7 +10,7 @@ collections:
       - {label: "Tittel", name: "title", widget: "string"}
       - {label: "Dato", name: "date", widget: "datetime", time_format: false}
       - {label: "Vedteke av", name: "signatory", widget: "string"}
-      - {label: "Bilete", name: "image", widget: "image"}
+      - {required: false, label: "Bilete", name: "image", widget: "image"}
       - {label: "Brødtekst", name: body, widget: "markdown"}
 
   - name: "artikkel"
@@ -45,6 +45,8 @@ collections:
     fields:
       - {label: "Namn", name: "name", widget: "string"}
       - {label: "Stad", name: "place", widget: "string"}
+      - {label: "Lengdegrad (desimalgrad, zoom inn på staden på google maps og kopier frå URL-en)", name: "latitude", widget: "number", value_type: 'float'}
+      - {label: "Breiddegrad", name: "longitude", widget: "number", value_type: 'float'}
       - {required: false, label: "Leiar", name: "leader", widget: "string"}
       - {required: false, label: "Kontakt", name: "contact", widget: "string"}
       - {required: false, label: "Facebook", name: "facebook", widget: "string"}

@@ -16,6 +16,7 @@
     --main-blue: #b2cee3;
     --main-blue: #00637d;
     --light-blue: #d7ebed;
+    --halflight-blue: #b1c9cb;
     --dark-blue: #f2fbec;
 
     --main-green: #86cb92;
@@ -24,7 +25,7 @@
     --main-green: #b4d3a7;
     --main-green: #40bf9a;
     --main-darkgreen: #081713;
-    --dark-green: #112908;
+    --dark-green: rgb(17, 41, 8);
     --dark-green: #000000;
     --light-green: #b4d3a7;
     --light-green: #9dd893;

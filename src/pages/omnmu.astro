@@ -2,17 +2,71 @@
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/shared/card.astro';
+import Pinpoint from '@assets/images/pinpoint_blue.png';
 
 import '@styles/globals.css';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+const leftB = 4.6490235;
+const rightB = 30.9380483;
+const topB = 71.185367;
+const bottB = 57.9831902;
+
+function coordToFrac(lat: number, lon: number) {
+	const merY = latitude => Math.log(Math.tan(Math.PI / 4 + latitude * Math.PI / 360));
+
+	return [100 * (merY(lat) - merY(bottB)) / (merY(topB) - merY(bottB)),
+			100 * (lon - leftB) / (rightB - leftB)]
+}
+
+const coords = [
+	{
+		lokallag: 'Bergen',
+		coord: coordToFrac(60.3861951,5.3234128)
+	},
+	{
+		lokallag: 'Sværholt',
+		coord: coordToFrac(70.9619348,26.6883586)
+	},
+	{
+		lokallag: 'Smøla',
+		coord: coordToFrac(63.4065633,8.0230952)
+	},
+	{
+		lokallag: 'Trondheim',
+		coord: coordToFrac(63.4067084,10.4746738)
+	},
+	{
+		lokallag: 'SmiA',
+		coord: coordToFrac(58.1586924,8.0194197)
+	},
+	{
+		lokallag: 'Oslo',
+		coord: coordToFrac(59.9115459,10.7462743)
+	},
+];
+
+/*
+*/
+
+console.log(coords)
 ---
 <Layout currentPage='/omnmu'>
 	<section class='margined flex flex-col gap-[var(--global-gap)]'>
-		<div class='pt-20 items-center text-center gap-[var(--hl-con-gap)]'>
+		<div class='grid pt-20 items-center text-center gap-[var(--hl-con-gap)] w-1/2'>
 			<h1 class='text-7xl'>Finn ditt lokallag!</h1>
-			<img src='/omnmu/noregskart.svg' class='w-full' >
+			<div class='relative'>
+				<div class='absolute inset-0'>
+					{coords.map((coord) => ( 
+						<img class='absolute' style={{
+							bottom: `${coord.coord[0]}%`,
+							left: `${coord.coord[1]}%`,
+							transform: 'translate(-50%, 0%)'
+						}}, src={Pinpoint.src} >
+					))}
+				</div>
+				<img src='/omnmu/noregskartmercator.svg' class='w-full' />
+			</div>
 		</div>
 	</section>
 </Layout>
