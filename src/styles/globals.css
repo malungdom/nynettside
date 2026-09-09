@@ -2,9 +2,12 @@
 @import "tailwindcss";
 
 @layer base {
-  p {
-    font-size: clamp(18px, 1.8vw, 24px);
+  html {
+    font-size: clamp(0.7rem, 0.8rem, 1.5rem);
+    font-size: clamp(12px, 16px, 24px);
+    overscroll-behavior-y: none;  
   }
+
 
   :root {
     --global-gap: 100px;
@@ -132,7 +135,15 @@
 	}
     
   .margined {
-      @apply w-full max-w-[1400px] items-center px-5 m-auto;
+      @apply w-full max-w-7xl items-center px-5 m-auto;
+  }
+
+  .rounded-standard {
+      border-radius: 0px;
+  }
+
+  .rounded-small {
+      border-radius: 0px;
   }
 
 }

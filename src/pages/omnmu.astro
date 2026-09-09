@@ -3,8 +3,13 @@ import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/shared/card.astro';
 import Pinpoint from '@assets/images/pinpoint_blue.png';
+import LocationIcon from '@assets/images/pinpoint.png';
+import RegnbogeLogo from '@assets/images/regnboge-logo.png';
 
 import '@styles/globals.css';
+import { getCollection } from 'astro:content';
+
+const lokallag = await getCollection('lokallag');
 
 
 const leftB = 4.6490235;
@@ -19,54 +24,98 @@ function coordToFrac(lat: number, lon: number) {
 			100 * (lon - leftB) / (rightB - leftB)]
 }
 
-const coords = [
-	{
-		lokallag: 'Bergen',
-		coord: coordToFrac(60.3861951,5.3234128)
-	},
-	{
-		lokallag: 'Sværholt',
-		coord: coordToFrac(70.9619348,26.6883586)
-	},
-	{
-		lokallag: 'Smøla',
-		coord: coordToFrac(63.4065633,8.0230952)
-	},
-	{
-		lokallag: 'Trondheim',
-		coord: coordToFrac(63.4067084,10.4746738)
-	},
-	{
-		lokallag: 'SmiA',
-		coord: coordToFrac(58.1586924,8.0194197)
-	},
-	{
-		lokallag: 'Oslo',
-		coord: coordToFrac(59.9115459,10.7462743)
-	},
-];
+const coords = lokallag.map( (lokallag) => {
+	return {
+		id: lokallag.id,
+		coord: coordToFrac(lokallag.data.latitude, lokallag.data.longitude) 
+	}
+});
 
-/*
-*/
+// Organizing them into colocated groups
 
-console.log(coords)
+const threshold = 0.25;
+let groups: Array<Array<Object>> = [];
+
+const distanceCalc = coordPair => Math.hypot((coordPair[0][0] - coordPair[1][0]), (coordPair[0][1] - coordPair[1][1]));
+
+for (const chapter of coords) {
+	let foundPreviousChapter = false;
+	for (const group of groups) {
+		if (distanceCalc([chapter.coord, group[0].coord]) < threshold) {
+			group.push(chapter);
+			foundPreviousChapter = true;
+		}
+	}
+	if (foundPreviousChapter == false) {
+		groups.push([chapter])
+	}
+}
+
+
 ---
 <Layout currentPage='/omnmu'>
 	<section class='margined flex flex-col gap-[var(--global-gap)]'>
-		<div class='grid pt-20 items-center text-center gap-[var(--hl-con-gap)] w-1/2'>
-			<h1 class='text-7xl'>Finn ditt lokallag!</h1>
+		<div class='grid pt-20 items-center text-center gap-[var(--hl-con-gap)] w-full max-w-[30rem]'>
+			<h1 class='text-6xl md:text-7xl'>Finn ditt lokallag!</h1>
 			<div class='relative'>
 				<div class='absolute inset-0'>
-					{coords.map((coord) => ( 
-						<img class='absolute' style={{
-							bottom: `${coord.coord[0]}%`,
-							left: `${coord.coord[1]}%`,
+					{groups.map((group, i) => (
+						<div class='absolute' id={`pinpoint-${i}`} style={{
+							bottom: `${group[0].coord[0]}%`,
+							left: `${group[0].coord[1]}%`,
 							transform: 'translate(-50%, 0%)'
-						}}, src={Pinpoint.src} >
+						}}>
+							<p class='absolute bg-[var(--main-green)] text-white rounded-small text-[0.8rem] px-1 -translate-y-1/1'>{group.length != 1 && group.length}</p>
+							<img src={Pinpoint.src}>
+						</div>
 					))}
 				</div>
 				<img src='/omnmu/noregskartmercator.svg' class='w-full' />
 			</div>
 		</div>
+		<div class='flex flex-col gap-[1rem]'>
+			{lokallag.map((lokallag) => ( 
+				<div id={`card-${lokallag.id}`} class='hidden'>
+ 					<Card colorSet='var(--light-grey)' borderwidth='0px' class='rounded-standard shadow-2xl grid md:grid-cols-2 overflow-clip'>
+ 					    <div class='min-h-0 px-5 py-8 md:px-10 grid grid-cols-[auto_1fr] gap-2'>
+ 					        <h1 class='text-left text-3xl md:text-4xl font-bold col-span-2'>{lokallag.data.name}</h1>
+ 					        <img class='-translate-y-1 md:translate-y-0 h-[1.5rem]' src={LocationIcon.src} /> 
+							<p>{lokallag.data.place}</p>
+ 					    </div>
+						<div class='min-h-0 flex relative '>
+ 					    	<img src={lokallag.data.image ? lokallag.data.image : RegnbogeLogo.src} class='absolute object-contain h-full right-0'>
+						</div>
+ 					</Card>
+				</div>
+			))}
+		</div>
+		<p id='teamtext'>Test</p>
 	</section>
 </Layout>
+
+<script define:vars={{lokallag, groups}}>
+	console.log(lokallag);
+	console.log(groups);
+
+	const byId = new Map(lokallag.map((lag) => [lag.id, lag.data.name]))
+	console.log('byId = ', byId)
+
+	const textField = document.getElementById('teamtext');
+
+	for (const [i, group] of groups.entries()) {
+		console.log(`lagar el for pinpoint-${i}`);
+		document.getElementById(`pinpoint-${i}`).addEventListener('click', () => {
+			for (lag of lokallag) {
+				const el = document.getElementById(`card-${lag.id}`);
+				el?.classList.add('hidden');
+			}
+
+			for (coord of group) {
+				const name = byId.get(coord.id);
+				const lag = document.getElementById(`card-${coord.id}`);
+				console.log(lag);
+				lag?.classList.toggle('hidden');
+			}
+		})
+	}
+</script>

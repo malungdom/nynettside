@@ -31,10 +31,10 @@ const goalCards = [
         <h1 class='text-5xl md:text-7xl col-span-full'>Kva kjempar me for?</h1>
         <div class='h-fit grid grid-cols-1 md:grid-cols-3 gap-10'>
             {goalCards.map( ({ head, image, link }) => (
-                <Card colorSet='var(--main-blue)' class='h-full grid grid-rows-[1fr_auto_auto] gap-10 md:gap-20 py-10 px-10 rounded-2xl '>
+                <Card colorSet='var(--main-blue)' class='h-full grid grid-rows-[1fr_auto_auto] gap-10 md:gap-20 py-10 px-10 rounded-standard'>
                     <h1 class='text-white text-3xl md:text-5xl text-center leading-15'>{head}</h1>
                     <img src={image} class='h-4/5 mx-auto items-center'>
-                    <a href={link} class='flex flex-row m-auto gap-2 text-center text-3xl text-white font-bold'>
+                    <a href={link} class='flex flex-row m-auto gap-2 text-center md:text-3xl text-white font-bold'>
                             <p class='hover:translate-x-2 transition duration-300'>Les meir ></p>
                     </a>
                 </Card>

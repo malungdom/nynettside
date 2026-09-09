@@ -9,7 +9,7 @@ facebook: ''
 instagram: ''
 tiktok: ''
 date: ''
-image: ''
+image: /src/assets/images/lokallaglogoar/oslo.png
 lagtype: ''
 active: ''
 ---

@@ -14,7 +14,7 @@ const hendingar = defineCollection({
 });
 
 const lokallag = defineCollection({
-	loader: glob({ pattern: "*.md", base: "./src/content/hendingar"}),
+	loader: glob({ pattern: "*.md", base: "./src/content/lokallag"}),
 });
 
 const songar = defineCollection({
