@@ -1,6 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Card from "@components/shared/card.astro";
+import Card from "@components/ui/card.astro";
 
 import '@styles/globals.css';
 
@@ -22,22 +22,22 @@ const songData = await Promise.all(
 ---
 
 <Layout>
-    <h1 class='text-4xl md:text-7xl text-center pt-20'>Songheftet til Norsk Målungdom</h1>
-    <section class='py-10'>
+    <h1 class='text-headline text-center pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
+    <section>
         <div class='margined grid text-center items-center gap-[var(--hl-con-gap)]'>
             <!--Card colorSet='var(--light-grey)' borderwidth='3px' class='grid grid-cols-2 md:grid-cols-5 rounded-2xl p-10'-->
             <div class='shadow-2xl shadow-[0_5px_10px_rgba(0,0,0,0.5)] hover:shadow-[0_10px_33px_rgba(0,0,0,0.5)] duration-600 bg-[var(--light-grey)] border-[0px] grid grid-cols-2 md:grid-cols-5 rounded-2xl p-10'>
                 <div class='col-span-2 md:col-span-5 grid md:grid-cols-5'>
-                    <h1 class='text-center text-4xl md:text-6xl md:col-start-2 col-span-2 md:col-span-3 py-10'>Songkatalogen vår</h1>
+                    <h1 class='text-center text-headline md:col-start-2 col-span-2 md:col-span-3 py-10'>Songkatalogen vår</h1>
                     <button id='lucky-button' class='button md:col-start-2 col-span-2 md:col-span-3 bg-[var(--main-green)]'>
-                        <p class='text-white text-3xl'>Prøv lukka!</p>
+                        <p class='text-white text-subhead'>Prøv lukka!</p>
                     </button>
                 </div>
                 <div class='hidden md:block md:col-span-5 md:h-[75px]' >
                 </div>
                 {songar.map((song, i) => ( 
                     <button id={`knapp-${i}`} class='button bg-[var(--light-blue)] hover:bg-[var(--halflight-blue)] transition-colors duration-600 z-50'>
-                        <p class='text-[17px]'>
+                        <p class='text-body'>
                             {song.data.title}
                         </p>
                     </button>
@@ -46,12 +46,12 @@ const songData = await Promise.all(
             <!--/Card-->
         </div>
     </section>
-    <section class='bg-[var(--light-blue)]'>
+    <section class='bg-[var(--light-blue)] py-[var(--hl-con-gap)]'>
         <div class='margined text-center'>
             {songData.map((song, i) => (
                 <div id={`song-${i}`} class='hidden'>
                     <div class='grid items-center align-center justify-center mx-auto'>
-                        <h1 class='py-[var(--hl-con-gap)]'>{song.title}</h1>
+                        <h1 class='pb-[var(--hl-con-gap)]'>{song.title}</h1>
                         <h2 class=''>Song: {song.author}</h2>
                         {song.tone && <h2 class=''>Tone: {song.tone}</h2>}
                     </div>
@@ -80,7 +80,8 @@ const songData = await Promise.all(
     }
     .content p {
         display: inline-block;
-    } 
+        font-size: var(--font-body);
+    }
 
     .button {
         margin: 5px;
@@ -131,13 +132,10 @@ const songData = await Promise.all(
         let sum = 0;
         for (i = shift; i > 0; i--) {
             const t = 1 - Math.pow((shift - i), 3);
-            console.log('t= ', t);
             times.push(t);
             sum += t;
         }
         const factor = sum / totalTime;
-
-        console.log('shift: ', shift, ', times: ', times);
 
         for (i = 0; i < shift; i++) {
             switchSong((currentI + 1) % len);
@@ -157,7 +155,6 @@ const songData = await Promise.all(
     })
 
     function switchSong(i) {
-        console.log('switchsong with ', i)
         const knappEl = document.getElementById(`knapp-${i}`)
         const songEl = document.getElementById(`song-${i}`)
 

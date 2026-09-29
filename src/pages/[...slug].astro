@@ -1,7 +1,7 @@
 ---
 import { getCollection, reference, render } from 'astro:content'
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/shared/card.astro';
+import Card from '../components/ui/card.astro';
 import '../styles/globals.css';
 
 export async function getStaticPaths() {
@@ -51,10 +51,10 @@ let subpages = allItems
 ---
 
 <Layout>
-    <div class='w-full max-w-4xl mx-10 md:m-auto text-center md:gap-20 pt-20 grid grid-cols-1'>
-        <h1 class='text-9xl'>{article.data.title}</h1>
+    <div class='w-full max-w-4xl mx-10 md:m-auto text-center gap-[var(--hl-con-gap)] pt-[var(--hl-con-gap)] grid grid-cols-1'>
+        <h1 class='text-headline'>{article.data.title}</h1>
         {article.data.image ? <img src={article.data.image} class='w-full'> : <div/>}
-        <div class='content pb-20 '>
+        <div class='content'>
             <Content />
         </div>
     </div>
@@ -71,7 +71,7 @@ let subpages = allItems
 
     .content p, .content ul, .content ol {
         line-height: 2.5rem;
-        font-size: 1.5rem;
+        font-size: var(--font-body);
     }
 
     .content ul > li {
@@ -90,15 +90,15 @@ let subpages = allItems
 
     .content h1 {
         font-family: 'Source Sans Pro', sans-serif;
-        font-size: 3rem;
+        font-size: var(--font-subhead);
     }
     .content h2 {
         font-family: 'Source Sans Pro', sans-serif;
-        font-size: 2.5rem;
+        font-size: var(--font-subhead);
         font-weight: 200;
     }
     .content small {
-        font-size: 1.5rem;
+        font-size: var(--font-body);
         font-style: italic;
         font-weight: 200;
     }

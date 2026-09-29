@@ -1,12 +1,12 @@
 
 ---
-import Button from '@components/shared/button.astro';
+import Button from '@components/ui/button.astro';
 
 const { class: className } = Astro.props;
 ---
 
-<div class={`${className} md:mb-20 mx-5 md:mx-auto md:p-8 flex flex-col gap-5 max-w-3xl md:rounded-standard md:bg-[var(--main-blue)]`}>
-    <p class='text-black md:text-white text-[15pt] md:text-2xl text-left md:text-justify font-light italic pb-5'>
+<div class={`${className} md:mb-20 mx-5 md:mx-auto md:p-8 flex flex-col gap-5 margined md:rounded-standard md:bg-[var(--main-blue)]`}>
+    <p class='text-black md:text-white text-subhead text-left md:text-justify  pb-5'>
 		Norsk Målungdom er eit lands&shy;dekkjande mållag med over 1200 elevar og studentar som kjempar for nynorsk, dialekt og språk&shy;mangfald i Noreg. 
     </p>
     <Button id='hero-CTAbutton' colorSet='lav' path='/omnmu' classes='w-full'>

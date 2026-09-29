@@ -1,7 +1,6 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/shared/card.astro';
+import Card from '../components/ui/card.astro';
 import Pinpoint from '@assets/images/pinpoint_blue.png';
 import LocationIcon from '@assets/images/pinpoint.png';
 import RegnbogeLogo from '@assets/images/regnboge-logo.png';
@@ -55,8 +54,8 @@ for (const chapter of coords) {
 ---
 <Layout currentPage='/omnmu'>
 	<section class='margined flex flex-col gap-[var(--global-gap)]'>
-		<div class='grid pt-20 items-center text-center gap-[var(--hl-con-gap)] w-full max-w-[30rem]'>
-			<h1 class='text-6xl md:text-7xl'>Finn ditt lokallag!</h1>
+		<div class='grid pt-[var(--hl-con-gap)] items-center text-center gap-[var(--hl-con-gap)] w-full max-w-[30rem]'>
+			<h1 class='text-headline'>Finn ditt lokallag!</h1>
 			<div class='relative'>
 				<div class='absolute inset-0'>
 					{groups.map((group, i) => (
@@ -65,7 +64,7 @@ for (const chapter of coords) {
 							left: `${group[0].coord[1]}%`,
 							transform: 'translate(-50%, 0%)'
 						}}>
-							<p class='absolute bg-[var(--main-green)] text-white rounded-small text-[0.8rem] px-1 -translate-y-1/1'>{group.length != 1 && group.length}</p>
+							<p class='absolute bg-[var(--main-green)] text-white rounded-small text-body px-1 -translate-y-1/1'>{group.length != 1 && group.length}</p>
 							<img src={Pinpoint.src}>
 						</div>
 					))}
@@ -78,9 +77,9 @@ for (const chapter of coords) {
 				<div id={`card-${lokallag.id}`} class='hidden'>
  					<Card colorSet='var(--light-grey)' borderwidth='0px' class='rounded-standard shadow-2xl grid md:grid-cols-2 overflow-clip'>
  					    <div class='min-h-0 px-5 py-8 md:px-10 grid grid-cols-[auto_1fr] gap-2'>
- 					        <h1 class='text-left text-3xl md:text-4xl font-bold col-span-2'>{lokallag.data.name}</h1>
+ 					        <h1 class='text-left text-subhead font-bold col-span-2'>{lokallag.data.name}</h1>
  					        <img class='-translate-y-1 md:translate-y-0 h-[1.5rem]' src={LocationIcon.src} /> 
-							<p>{lokallag.data.place}</p>
+							<p class='text-body'>{lokallag.data.place}</p>
  					    </div>
 						<div class='min-h-0 flex relative '>
  					    	<img src={lokallag.data.image ? lokallag.data.image : RegnbogeLogo.src} class='absolute object-contain h-full right-0'>
@@ -89,21 +88,16 @@ for (const chapter of coords) {
 				</div>
 			))}
 		</div>
-		<p id='teamtext'>Test</p>
+		<p id='teamtext' class='text-body'>Test</p>
 	</section>
 </Layout>
 
 <script define:vars={{lokallag, groups}}>
-	console.log(lokallag);
-	console.log(groups);
-
 	const byId = new Map(lokallag.map((lag) => [lag.id, lag.data.name]))
-	console.log('byId = ', byId)
 
 	const textField = document.getElementById('teamtext');
 
 	for (const [i, group] of groups.entries()) {
-		console.log(`lagar el for pinpoint-${i}`);
 		document.getElementById(`pinpoint-${i}`).addEventListener('click', () => {
 			for (lag of lokallag) {
 				const el = document.getElementById(`card-${lag.id}`);
@@ -113,7 +107,6 @@ for (const chapter of coords) {
 			for (coord of group) {
 				const name = byId.get(coord.id);
 				const lag = document.getElementById(`card-${coord.id}`);
-				console.log(lag);
 				lag?.classList.toggle('hidden');
 			}
 		})

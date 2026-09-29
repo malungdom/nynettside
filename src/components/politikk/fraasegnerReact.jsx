@@ -14,7 +14,6 @@ export default function FraasegnListe({ fraasegner }) {
         document.body.style.overflow = 'hidden';
     }
     const handleClose = () => {
-        console.log('closing card');
         setOpen(false);
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
@@ -61,7 +60,7 @@ export default function FraasegnListe({ fraasegner }) {
                     transform: open ? 'translateY(3dvh) translate(-50%, -50%) ' : 'translate(-50%, 100vh)',
                     transition: 'transform 0.3s ease',
                 }}
-                onClick={(e) => {console.log('kort trykt'); e.stopPropagation()}}>
+                onClick={(e) => e.stopPropagation()}>
                     <button onClick={() => handleClose()}>
                         <div style={{zIndex: 105, 'position': 'fixed', 'transform': 'translate(-1.2rem, -2.3rem)', 'background-color': '#ff8383', 'padding': '0 0.6rem 0 0.6rem', 'color': 'white', 'border-radius': '0.3rem', 'font-size': '1.5rem'}}>
                             X
@@ -71,7 +70,7 @@ export default function FraasegnListe({ fraasegner }) {
                         <div style={{'display': 'flex', 'justify-content': 'center'}}>
                             <div style={{'width': '80%', 'margin-top': '3rem', 'margin-bottom': '3rem'}}>
                                 <h1>{title}</h1>
-                                <div style={{'font-size': '2rem'}} dangerouslySetInnerHTML={{__html: text}} />
+                                <div style={{'font-size': 'var(--font-body)'}} dangerouslySetInnerHTML={{__html: text}} />
                             </div>
                         </div>
                     </div>

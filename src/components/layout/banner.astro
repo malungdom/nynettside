@@ -16,7 +16,7 @@ const pages = [
 
 const { pagePath } = Astro.props;
 import '../../styles/globals.css';
-import Button from '../shared/button.astro'
+import Button from '../ui/button.astro'
 
 
 //{pages.map((page) => <a href={page.path} data-text={page.name} class:list={['link', {'activepage': pagePath == page.path}]}>{page.name}</a>)}
@@ -34,11 +34,10 @@ import Button from '../shared/button.astro'
         </a>
         <a id='desktop-logo-a' href='/' class='h-full flex flex-row invisible md:visible'>
             <img src='/nmu-kun-logo.svg' alt='Logo til Norsk Målungdom' class='pl-2 h-full'>
-            <div class='flex flex-row items-center'><p class='text-white text-3xl'>Norsk Målungdom</p></div>
+            <div class='flex flex-row items-center'><p class='text-white text-subhead'>Norsk Målungdom</p></div>
         </a>
     </div>
     <div class='hidden md:flex md:pr-15 md:gap-10 items-center'>
-        <!--Menu pages = {pages} activePage = {pagePath} client:idle/-->
         <nav class='flex flex-row gap-10'>
             {pages.map((page) => (
                 <a href={page.path} class='link link-ver'>{page.name}</a>
@@ -153,7 +152,7 @@ import Button from '../shared/button.astro'
     .link {
         color: #fff;
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        font-size: 1.7rem;
+        font-size: var(--font-subhead);
         font-weight: 500;
         text-decoration: none;
         transform: translate(0px, 0px);
@@ -197,17 +196,14 @@ import Button from '../shared/button.astro'
     document.getElementById('dropdown-menu')?.classList.remove('menu-shown');
 
     document.querySelector('#hamburger-icon')?.addEventListener('click', () => {
-            console.log('burgermeny trykt');
             burgerClosed = !burgerClosed;
-            console.log('burgerClosed = ', burgerClosed);
             document.getElementById('dropdown-menu')?.classList.toggle('menu-shown');
             document.getElementById('hamburger-icon')?.classList.toggle('rotated');
-        }   
+        }
     )
-    
+
     window.addEventListener('load', () => {
         const btn = document.querySelector('#banner-button');
         btn?.classList.remove('no-transition');
-        console.log('event listened');
     });
 </script>

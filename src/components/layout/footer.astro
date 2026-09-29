@@ -31,8 +31,8 @@ const { class: className } = Astro.props;
         </nav>
     </div>
     <div class='flex flex-col items-center pb-10'>
-        <p class='text-white font-extralight text-[1.3rem]'>Rammeverk: <a class='font-normal' href='https://astro.build/'>Astro</a> med <a class='font-normal' href='https://sveltiacms.app/en/'>Sveltia CMS</a></p>
-        <p class='text-white font-extralight text-[1.3rem]'>Design og utvikling: <a class='font-normal' href='https://www.linkedin.com/in/oliver-hovden-2aa9b0379/'>Oliver Hovden</a></p>
+        <p class='text-white font-extralight text-body'>Rammeverk: <a class='font-normal' href='https://astro.build/'>Astro</a> med <a class='font-normal' href='https://sveltiacms.app/en/'>Sveltia CMS</a></p>
+        <p class='text-white font-extralight text-body'>Design og utvikling: <a class='font-normal' href='https://www.linkedin.com/in/oliver-hovden-2aa9b0379/'>Oliver Hovden</a></p>
     </div>
 </footer>
 
@@ -45,12 +45,12 @@ const { class: className } = Astro.props;
     }
     .navSec h2 {
         text-align: left;
-        font-size: 2rem;
+        font-size: var(--font-body);
         font-weight: 200;
         text-transform: uppercase;
     }
     .navSec a {
-        font-size: 1.3rem;
+        font-size: var(--font-body);
         font-weight: 200;
     }
 

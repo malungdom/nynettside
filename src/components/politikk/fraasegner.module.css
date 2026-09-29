@@ -18,11 +18,11 @@
 .fraasegnCard p {
   color: #333;
   margin-bottom: 3rem;
-  font-size: 1.2rem;
+  font-size: var(--font-body);
   line-height: 2rem;
 }
 .fraasegnCard h1 {
-  font-size: 3rem;
+  font-size: var(--font-subhead);
   padding-bottom: 1.5rem;
   text-align: center;
 }
@@ -31,8 +31,5 @@
   .fraasegnCard {
     text-align: left;
     top: 65dvh
-  }
-  .fraasegnCard p {
-    font-size: 1.2rem;
   }
 }

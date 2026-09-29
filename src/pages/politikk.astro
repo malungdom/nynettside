@@ -1,8 +1,7 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/shared/button.astro'
-import Card from '../components/shared/card.astro';
+import Button from '../components/ui/button.astro'
+import Card from '../components/ui/card.astro';
 import FraasegnModal from '../components/politikk/fraasegner.astro';
 import FraasegnReact from '@components/politikk/fraasegnerReact';
 
@@ -71,51 +70,46 @@ const politiskProgram = [
 <Layout currentPage='/politikk'>
 	<!--Hero-seksjon -->
 	<section class='grid grid-cols-1 md:grid-cols-2 bg-[var(--light-blue)] shadow-xl'>
-		<div class='flex justify-center mx-10 md:mx-auto my-10 md:my-auto text-left md:text-justify italic '>
-			<div class='flex flex-col w-full max-w-3xl gap-10'>
-				<h1 class='text-left md:text-center text-5xl md:text-7xl not-italic'>Den politiske verksemda vår</h1>
-				<p>Norsk Målungdom verjar og fremjar interessene til nynorsk og dialektane og samarbeider aktivt med Noregs Mållag for å få politiske gjennomslag for nynorsk.</p>
-				<p>NMU utformar sin eigen politikk og arbeidsprogram og skriv fråsegner om aktuelle tema som du kan lesa her.
-				</p>
-			</div>
+		<div class='hero-text'>
+			<h1 class='text-center text-[4cqi]'>Den politiske verksemda vår</h1>
+			<p class='text-justify'>Norsk Målungdom verjar og fremjar interessene til nynorsk og dialektane og samarbeider aktivt med Noregs Mållag for å få politiske gjennomslag for nynorsk.
+				<br/><br/>NMU utformar sin eigen politikk og arbeidsprogram og skriv fråsegner om aktuelle tema som du kan lesa her.</p>
 		</div>
-		<img src='/marentalar.jpg' />
+		<img src='/marentalar.jpg' class='w-full h-full object-cover' />
 	</section>
 	<!--Vanleg seksjon-->
-	<section class='flex flex-col text-center gap-[var(--global-gap)] margined'>
+	<!--section class='flex flex-col text-center gap-[var(--hl-con-gap)] margined'-->
+	<section class='margined section-1-2 relative'>
 		<!--Element for arbeidsprogram-->
-		<div class='grid grid-cols-1 text-center align-center items-center'>
-			<h1 class='text-7xl px-8 py-5'>Politiske program</h1>
-			<div class='w-fit'>
-				<p class='italic m-auto pt-10 w-1/2'>NMU vedtar ulike politiske program som legg grunnlag for organisajonen. Dei politiske programma er tankegrunnlaget til dei politiske standpunkta våre.</p>
-			</div>
+		<div class='hero-text px-0 py-0'>
+			<h1 class='text-headline'>Politiske program</h1>
+			<p class='italic text-body'>NMU vedtar ulike politiske program som legg grunnlag for organisajonen. Dei politiske programma er tankegrunnlaget til dei politiske standpunkta våre.</p>
 		</div>
-		<nav class='grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-5 mx-5'>
+		<nav class='grid grid-cols-1 gap-5 md:gap-1 mx-5 md:absolute md:inset-0 md:col-start-2 overflow-scroll'>
 				{politiskProgram.map((program) => ( 
 					<a href={program.path} class='w-full ease-in-out isolate'>
-						<Card colorSet='var(--light-green)' class='p-10 rounded-2xl'>
-							<p class='text-center text-2xl text-[var(--dark-green)]'>{program.title}</p>
+						<Card colorSet='var(--light-blue)' class='py-10'>
+							<p class='text-center text-body text-black'>{program.title}</p>
 						</Card>
 					</a>
 				))}
 		</nav>
 	</section>
 	<!--Fråsegner-->
-	<section class='bg-[var(--light-blue)] py-[var(--hl-con-gap)]'>
-		<div class='margined flex flex-col gap-[var(--hl-con-gap)]'>
-			<h1 class='text-7xl'>Fråsegner</h1>
-			<p class='italic'>NMU vedtar fråsegner om aktuelle tema</p>
-			<div class='grid gap-5'>
+	<section class='bg-[var(--light-blue)]'>
+	<div class='margined section-2-1 relative '>
+		<nav class='grid grid-cols-1 gap-5 md:gap-1 my-5 h-[50vh] overflow-y-auto'>
 				{fraasegnerMetadata.map((stmt, i) => (
-					<button id={`stmt-${i}`} class='w-3/4 mx-auto bg-[var(--light-grey)]'>{stmt.title}</button>
+					<Card id={`stmt-${i}`} colorSet='var(--light-grey)' class='py-10'>
+						<p class='text-center text-body text-black'>{stmt.title}</p>
+					</Card>
 				))}
-			</div>
+		</nav>
+		<div class='hero-text px-0 py-0'>
+			<h1 class='text-headline'>Fråsegner</h1>
+			<p class='italic text-body'>NMU vedtar fråsegner om aktuelle tema</p>
 		</div>
-	</section>
+	</divk
+	k/section>
 	<FraasegnReact fraasegner={fraasegner} client:load />
 </Layout>
-
-<script define:vars={{ fraasegnerMetadata }}>
-	console.log('fraasegner: ', fraasegnerMetadata[0]);
-
-</script>
