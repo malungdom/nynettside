@@ -2,7 +2,6 @@
 import Layout from '@layouts/Layout.astro';
 import Button from '@components/ui/button.astro';
 import Hero from '@components/index/hero.astro';
-import Card from '@components/ui/card.astro';
 import Hendingar from '@components/index/hendingar.astro';
 import '@styles/globals.css';
 
@@ -31,13 +30,13 @@ const goalCards = [
     <section id='goal-cards' class='margined grid gap-[var(--hl-con-gap)]'>
         <div class='h-fit grid grid-cols-1 md:grid-cols-3 gap-10'>
             {goalCards.map( ({ head, image, link }) => (
-                <Card colorSet='var(--main-blue)' class='h-full grid grid-rows-[1fr_auto_auto] gap-10 md:gap-20 py-10 px-10 rounded-standard'>
+                <div class='card card-blue h-full grid grid-rows-[1fr_auto_auto] gap-10 md:gap-20 py-10 px-10 rounded-standard'>
                     <h1 class='text-white text-headline text-center leading-15'>{head}</h1>
                     <img src={image} class='h-4/5 mx-auto items-center'>
                     <a href={link} class='flex flex-row m-auto gap-2 text-center text-subhead text-white font-bold'>
                             <p class='hover:translate-x-2 transition duration-300'>Les meir ></p>
                     </a>
-                </Card>
+                </div>
             ))}
         </div>
     </section>

@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/ui/button.astro'
-import Card from '../components/ui/card.astro';
 import FraasegnModal from '../components/politikk/fraasegner.astro';
 import FraasegnReact from '@components/politikk/fraasegnerReact';
 
@@ -30,7 +29,7 @@ const politiskProgram = [
 		image: '/politikk/mangeflag.png'
 	},
 	{
-		title: 'Program for Noreg som fleir\u00ADspråkleg samfunn',
+		title: 'Noreg som fleir\u00ADspråkleg samfunn',
 		path: '/politikk/program/noreg-som-fleirsprakleg-samfunn',
 		image: '/politikk/samisk.png'
 	},
@@ -42,7 +41,7 @@ const politiskProgram = [
 	},
 	{
 		title: 'Språk i akademia og høgare utdanning',
-		path: '/politikk/program/sprak-i-akademia-og-høgare-utdanning',
+		path: '/politikk/program/sprak-i-akademia-og-hogare-utdanning',
 		image: '/politikk/kalender.png'
 
 	},
@@ -69,47 +68,55 @@ const politiskProgram = [
 
 <Layout currentPage='/politikk'>
 	<!--Hero-seksjon -->
-	<section class='grid grid-cols-1 md:grid-cols-2 bg-[var(--light-blue)] shadow-xl'>
-		<div class='hero-text'>
-			<h1 class='text-center text-[4cqi]'>Den politiske verksemda vår</h1>
-			<p class='text-justify'>Norsk Målungdom verjar og fremjar interessene til nynorsk og dialektane og samarbeider aktivt med Noregs Mållag for å få politiske gjennomslag for nynorsk.
-				<br/><br/>NMU utformar sin eigen politikk og arbeidsprogram og skriv fråsegner om aktuelle tema som du kan lesa her.</p>
+	<div>
+	<section class='grid grid-cols-1 md:grid-cols-[3fr_3fr] bg-[var(--light-blue)] bg-white shadow-0xl'>
+		<div class='flex flex-col gap-10 justify-around pl-[var(--bleed)] md:pr-20 py-15 my-0'>
+			<h1 class='text-center md:text-[3cqi]'>Den politiske verksemda vår</h1>
+			<p class='text-subhead text-left italic'>Norsk Målungdom verjar og fremjar interessene til nynorsk og dialektane og samarbeider aktivt med Noregs Mållag for å få politiske gjennomslag for nynorsk.
+			</p>
+			<p class='text-subhead italic'>
+			NMU utformar sin eigen politikk og arbeidsprogram og skriv fråsegner om aktuelle tema som du kan lesa her.
+			</p>
 		</div>
-		<img src='/marentalar.jpg' class='w-full h-full object-cover' />
+		<div>
+			<img src='/marentalar.jpg' class='w-[100svw] overflow-visible' />
+		</div>
 	</section>
 	<!--Vanleg seksjon-->
 	<!--section class='flex flex-col text-center gap-[var(--hl-con-gap)] margined'-->
-	<section class='margined section-1-2 relative'>
+	<div class='bg-[var(--light-blue)] py-40'>
+	<section class='margined section-3-2 relative items-start'>
 		<!--Element for arbeidsprogram-->
-		<div class='hero-text px-0 py-0'>
-			<h1 class='text-headline'>Politiske program</h1>
-			<p class='italic text-body'>NMU vedtar ulike politiske program som legg grunnlag for organisajonen. Dei politiske programma er tankegrunnlaget til dei politiske standpunkta våre.</p>
-		</div>
-		<nav class='grid grid-cols-1 gap-5 md:gap-1 mx-5 md:absolute md:inset-0 md:col-start-2 overflow-scroll'>
-				{politiskProgram.map((program) => ( 
+		<!--nav class='card bg-[var(--light-grey)] p-5 grid grid-cols-1 gap-5 md:gap-1 mx-5 md:absolute md:inset-0 md:col-start-2 overflow-scroll'-->
+		<nav class='grid grid-cols-1 gap-2 p-0 bg-[var(--light-grey)] bg-white'>
+				{politiskProgram.map((program, i) => ( 
 					<a href={program.path} class='w-full ease-in-out isolate'>
-						<Card colorSet='var(--light-blue)' class='py-10'>
-							<p class='text-center text-body text-black'>{program.title}</p>
-						</Card>
+						<div class=`card ${i % 2 == 0 ? 'bg-[var(--main-green)]' : 'bg-[var(--main-green)]'} py-5 `>
+							<p class='px-5 text-left text-body text-[var(--main-blue)] text-white font-bold sunderline'>{program.title}</p>
+						</div>
 					</a>
 				))}
 		</nav>
-	</section>
+		<div class='sticky-center grid gap-[var(--hl-con-gap)]'>
+			<h1 class='text-headline'>Politiske program</h1>
+			<p class='italic text-subhead'>NMU vedtar ulike politiske program som legg grunnlag for organisajonen. Dei politiske programma er tankegrunnlaget til dei politiske standpunkta våre.</p>
+		</div>
+	</section></div></div>
 	<!--Fråsegner-->
-	<section class='bg-[var(--light-blue)]'>
-	<div class='margined section-2-1 relative '>
-		<nav class='grid grid-cols-1 gap-5 md:gap-1 my-5 h-[50vh] overflow-y-auto'>
-				{fraasegnerMetadata.map((stmt, i) => (
-					<Card id={`stmt-${i}`} colorSet='var(--light-grey)' class='py-10'>
-						<p class='text-center text-body text-black'>{stmt.title}</p>
-					</Card>
-				))}
-		</nav>
+	<section class=''>
+	<div class='margined section-1-2 relative '>
 		<div class='hero-text px-0 py-0'>
 			<h1 class='text-headline'>Fråsegner</h1>
 			<p class='italic text-body'>NMU vedtar fråsegner om aktuelle tema</p>
 		</div>
-	</divk
-	k/section>
+		<nav class='grid grid-cols-1 bg-[var(--light-blue)] p-10 gap-5 md:gap-1 my-5 h-[50vh] overflow-y-auto'>
+				{fraasegnerMetadata.map((stmt, i) => (
+					<div id={`stmt-${i}`} class='card card-green py-10'>
+						<p class='text-center text-body text-black'>{stmt.title}</p>
+					</div>
+				))}
+		</nav>
+	</div>
+	</section>
 	<FraasegnReact fraasegner={fraasegner} client:load />
 </Layout>

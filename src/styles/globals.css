@@ -3,23 +3,22 @@
 
 @layer base {
   html {
-    overscroll-behavior-y: none;  
+    overscroll-behavior-y: none;
   }
 
-
   :root {
-    --global-gap: 100px;
+    --global-gap: 75px;
     --hl-con-gap: 45px;
 
     --font-headline: 3.5rem;
     --font-body: 1.2rem;
 
     --font-headline: clamp(2rem, 1rem + 4vw, 3.5rem);
-    --font-subhead: clamp(1rem, 1rem + 0.5vw, 2rem);
-    --font-body: 1.2rem;
+    --font-subhead: clamp(0.8rem, 0.8rem + 0.5vw, 2rem);
+    --font-body: clamp(0.55rem, 0.8rem + 0.3vw, 2rem);
 
-    --main-blue: theme('colors.blue.300');
-    --main-blue-dark: theme('colors.blue.300');
+    --main-blue: theme("colors.blue.300");
+    --main-blue-dark: theme("colors.blue.300");
     --main-blue: #b4cef2;
     --main-blue: #b2cee3;
     --main-blue: #00637d;
@@ -29,14 +28,15 @@
 
     --main-green: #86cb92;
     --main-green: #b4d3a7;
-    --main-green: theme('colors.green.300');
+    --main-green: theme("colors.green.300");
     --main-green: #b4d3a7;
     --main-green: #40bf9a;
     --main-darkgreen: #081713;
     --dark-green: rgb(17, 41, 8);
     --dark-green: #000000;
-    --light-green: #b4d3a7;
     --light-green: #9dd893;
+    --light-green: #b4d3a7;
+    --light-green: #e2f8d9;
 
     --main-grey: #e8e6e6;
     --light-grey: #eef0f4;
@@ -44,7 +44,7 @@
     --dark-grey: #1d360a;
 
     --main-lav: #d4badd;
-    --main-lav: theme('colors.purple.300');
+    --main-lav: theme("colors.purple.300");
     --main-lav: #d982c9;
     --main-lav: #d4badd;
     --main-lav: #cd95f4;
@@ -57,85 +57,92 @@
     --main-textblack: #bc0d0d;
 
     --main-dgray: #6ba978;
-    --main-dgray: #40BF9A;
+    --main-dgray: #40bf9a;
 
-    --banner-h-desktop: 6rem;
+    --banner-h-desktop: 5rem;
     --banner-h-mobile: 4rem;
 
+    --margined-max-width: 1500px;
+
+    --bleed: calc(max(0px, (100vw - var(--margined-max-width)) / 2) + 15px);
   }
 
   body {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     background-color: #ffffff;
   }
 
   h1 {
-    font-family: 'Gloock';
+    font-family: "Gloock";
     font-size: var(--font-headline);
     color: var(--dark-grey);
+    color: black;
   }
 
   .margined {
-      @apply w-full max-w-7xl items-center px-5 m-auto;
+    @apply w-full max-w-[var(--margined-max-width)] items-center px-5 mx-auto;
+  }
+
+  .section-1-1 {
+    @apply grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-[var(--hl-con-gap)];
   }
 
   .section-1-2 {
-      @apply grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-[var(--hl-con-gap)];
+    @apply grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-[var(--hl-con-gap)];
   }
 
   .section-2-1 {
-      @apply grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-[var(--hl-con-gap)];
+    @apply grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-[var(--hl-con-gap)];
   }
 
   .section-2-3 {
-      @apply grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-[var(--hl-con-gap)];
+    @apply grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-[var(--hl-con-gap)];
   }
 
   .section-3-2 {
-      @apply grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-[var(--hl-con-gap)];
+    @apply grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-[var(--hl-con-gap)];
   }
 
   .sticky-center {
-      @apply md:sticky md:top-[calc(50vh-var(--font-headline))];
+    @apply md:sticky md:top-[calc(50vh-var(--font-headline))];
   }
 
   .hero-text {
-      @apply h-full flex flex-col justify-center gap-[var(--hl-con-gap)] px-10 mx-auto py-10 md:pt-[var(--hl-con-gap)];
+    @apply h-full flex flex-col justify-center gap-[var(--hl-con-gap)] px-15 mx-auto py-10 md:pt-[var(--hl-con-gap)];
   }
 
   .hero-text h1 {
-      line-height: 1.15;
+    line-height: 1.15;
   }
 
   .hero-text p {
-      font-size: var(--font-subhead);
-      line-height: 1.5;
+    font-size: var(--font-subhead);
+    line-height: 1.5;
   }
 
   .text-headline {
-      font-size: var(--font-headline);
+    font-size: var(--font-headline);
   }
 
   .text-subhead {
-      font-size: var(--font-subhead);
+    font-size: var(--font-subhead);
   }
 
   .text-body {
-      font-size: var(--font-body);
+    font-size: var(--font-body);
   }
 
   .rounded-standard {
-      border-radius: 0px;
+    border-radius: 0px;
   }
 
   .rounded-small {
-      border-radius: 0px;
+    border-radius: 0px;
   }
-
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   :root {
     --global-gap: 50px;
     --hl-con-gap: 25px;
@@ -150,25 +157,60 @@
   color: var(--text-lav);
 }
 
-  @layer components {
+@layer components {
+  /* Card: shared surface for all card-like boxes.
+	   Colour is set with a modifier class (or by overriding --card-bg). */
+  .card {
+    background-color: var(--card-bg, var(--light-grey));
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    transition: all 0.6s ease-in-out;
+  }
+  .card:hover {
+    box-shadow: 0 10px 33px rgba(0, 0, 0, 0.9);
+    transition: all 0.3s ease-in-out;
+  }
+  .card-flat,
+  .card-flat:hover {
+    box-shadow: none;
+  }
+  .card-grey {
+    --card-bg: var(--light-grey);
+  }
+  .card-blue {
+    --card-bg: var(--main-blue);
+  }
+  .card-lightblue {
+    --card-bg: var(--light-blue);
+  }
+  .card-green {
+    --card-bg: var(--main-green);
+  }
 
-	@keyframes slideUp {
-    	from {
-    	    opacity: 0;
-    	    transform: translateY(80px);
-    	}
-    	to {
-    	    opacity: 1;
-    	    transform: translateY(0);
-    	}
-	}
-	.slide-up {
-		opacity: 0;
-	  animation: slideUp 0.2s ease-out forwards;
-		animation-play-state: paused;
-	}
-	.delay-1 { animation-delay: 0.2s; }
-	.delay-2 { animation-delay: 0.4s; }
-	.delay-3 { animation-delay: 0.6s; }
-	.delay-4 { animation-delay: 0.8s; }
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(80px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .slide-up {
+    opacity: 0;
+    animation: slideUp 0.2s ease-out forwards;
+    animation-play-state: paused;
+  }
+  .delay-1 {
+    animation-delay: 0.2s;
+  }
+  .delay-2 {
+    animation-delay: 0.4s;
+  }
+  .delay-3 {
+    animation-delay: 0.6s;
+  }
+  .delay-4 {
+    animation-delay: 0.8s;
+  }
 }

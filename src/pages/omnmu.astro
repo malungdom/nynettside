@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/ui/card.astro';
 import Pinpoint from '@assets/images/pinpoint_blue.png';
 import LocationIcon from '@assets/images/pinpoint.png';
 import RegnbogeLogo from '@assets/images/regnboge-logo.png';
@@ -75,7 +74,7 @@ for (const chapter of coords) {
 		<div class='flex flex-col gap-[1rem]'>
 			{lokallag.map((lokallag) => ( 
 				<div id={`card-${lokallag.id}`} class='hidden'>
- 					<Card colorSet='var(--light-grey)' borderwidth='0px' class='rounded-standard shadow-2xl grid md:grid-cols-2 overflow-clip'>
+ 					<div class='card card-grey text-justify rounded-standard grid md:grid-cols-2 overflow-clip'>
  					    <div class='min-h-0 px-5 py-8 md:px-10 grid grid-cols-[auto_1fr] gap-2'>
  					        <h1 class='text-left text-subhead font-bold col-span-2'>{lokallag.data.name}</h1>
  					        <img class='-translate-y-1 md:translate-y-0 h-[1.5rem]' src={LocationIcon.src} /> 
@@ -84,7 +83,7 @@ for (const chapter of coords) {
 						<div class='min-h-0 flex relative '>
  					    	<img src={lokallag.data.image ? lokallag.data.image : RegnbogeLogo.src} class='absolute object-contain h-full right-0'>
 						</div>
- 					</Card>
+ 					</div>
 				</div>
 			))}
 		</div>

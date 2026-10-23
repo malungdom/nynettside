@@ -2,8 +2,8 @@
 const { colorSet, path, text, width, id: iden, class: className } = Astro.props;
 ---
 
-<a id={`${iden}`} href={path} class='w-full'>
-<div class={`button w-full ${className}`} style={`--button-color: var(--main-${colorSet}); --button-width: ${width}`}>
+<a id={`${iden}`} href={path} class=''>
+<div class={`button ${className}`} style={`--button-color: var(--main-${colorSet}); --button-width: ${width}`}>
     <slot />
 </div>
 </a>

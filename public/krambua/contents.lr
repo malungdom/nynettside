@@ -1,0 +1,120 @@
+_model: page-advanced
+---
+tittel: Krambua
+---
+ingress:
+
+<center> Kjøp tilfang frå Norsk Målungdom. Nedst på sida finn du skjema der du legg inn bestillinga di. Porto kjem i tillegg, vanlegvis på 30 eller 50 kr. 
+
+---
+
+tekst:
+
+#### text-block ####
+content:
+
+<img src="sokkar.png" alt="«Gå for nynorsken»-sokkar">
+<center> **«Gå for nynorsken»-sokkar**
+<br>70 kroner
+<br><small>Storleik 35–38, 39–42, 43–46</small>
+----
+class: box
+#### text-block ####
+content:
+
+<img src="hovudmal-skuggelue.png" alt="«Hovudmål»-skuggelue">
+<center> **«Hovudmål»-skuggelue**
+<br>200 kroner
+----
+class: box
+#### text-block ####
+content:
+
+<img src="tskjortekvit.png" alt="Kvit t-skjorte: nynorsk.">
+<center> **«nynorsk.»-t-skjorte, kvit**
+<br>170 kroner
+<br><small>Storleik XS, S, M, L, XL, XXL</small>
+----
+class: box
+#### text-block ####
+content:
+
+<img src="tskjortesvart.png" alt="Svart t-skjorte: nynorsk.">
+<center> **«nynorsk.»-t-skjorte, svart**
+<br>170 kroner
+<br><small>Storleik XS, S, M, L, XL, XXL</small>
+----
+class: box
+#### text-block ####
+content:
+
+<img src="jakkemerke.png" alt="Jakkemerke">
+<center> **Jakkemerke**
+<br>7 kroner (20 stk for 100 kroner)
+----
+class: box
+#### text-block ####
+content:
+
+<img src="sogehefte.png" alt="Ung målstrid. Norsk Målungdom 60 år">
+<center> **Ung målstrid. Norsk Målungdom 60 år**
+<br>249 kroner
+<br><small>Norsk Målungdom har runda seksti år. Dette sogeheftet fortel om ideologiske og politiske kampar og stridsspørsmål, men òg om medlemer, aksjonistar og tillitsvalde. Innheld artiklar av Eli Morken Farstad, Magnus Bernhardsen, Øystein Edvardsen Hide, Oddrun Grønvik, Jens Kihl, Rolf Theil og Magnus Løken. Dette gjev eit historisk blikk både frå innsida og utsida.</small>
+----
+class: box
+#### text-block ####
+content:
+
+<img src="bok-syngja.png" alt="Eg vil so gjerne syngja">
+<center> **Eg vil so gjerne syngja**
+<br>100 kroner
+----
+class: box
+#### text-block ####
+content:
+
+<img src="bok-sidemaal.png" alt="Kva skal vi med sidemål?">
+<center> **Kva skal vi med sidemål?**
+<br>100 kroner
+----
+class: box
+#### text-block ####
+content:
+
+<img src="motmaeleabo.png" alt="Motmæle">
+<center> **Motmæle-abonnement**
+<br>200 kroner for eitt år
+----
+class: box
+#### text-block ####
+content: <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeiMf08MzY0CuXdpdMdH_n86P5nk6AVGffGW5wmS2uVwfMUJA/viewform?embedded=true" width="100%" height="1800" frameborder="0" marginheight="0" marginwidth="0">Lastar inn …</iframe>
+----
+class: box
+---
+class:
+
+box
+
+
+
+<!---#### text-block ####
+content:
+Send e-post til [norsk@malungdom.no](mailto:norsk@malungdom.no) viss du lurer på noko.
+
+<form method="POST" action="/cgi-bin/send.py?_type=krambua"
+  data-type="krambua" data-success="Takk for tinginga! Vi sender deg det du vil ha og ein faktura.">
+  <label>Kva vil du ha? <small>(hugs å skrive inn storleik og farge)</small> <input name="kva" required></label>
+  <label>Namn <input name="namn" required></label>
+  <label>Addresse <input name="adresse"></label>
+  <label>Postnr <input name="postnr" required></label>
+  <label>Epost <input type="email" name="epost"></label>
+  <input type="submit" value="Send!">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <div class="cf-turnstile" data-sitekey="0x4AAAAAAABJEAUJ2icigBG4"></div>
+</form>
+
+
+**<small>Frakt kjem i tillegg, og kostar vanlegvis ikkje meir enn 30 kr.</small>**
+
+---
+toppbilete: none

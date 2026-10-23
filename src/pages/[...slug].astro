@@ -1,7 +1,6 @@
 ---
 import { getCollection, reference, render } from 'astro:content'
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/ui/card.astro';
 import '../styles/globals.css';
 
 export async function getStaticPaths() {
@@ -30,21 +29,21 @@ let subpages = allItems
 <Layout>
     <h1 class='my-15 text-7xl text-center'>{article.data.title}</h1>
     {subpages.length > 0 && ( 
-    <Card>
+    <div class='card card-grey text-justify'>
         <div class='content'>
             <p>Subpages: {subpages.map(({title, slug}) => <a href={`/${slug}`} class='pr-3'>{title}</a>)}</p>
         </div>
-    </Card>
+    </div>
     )}
 
     {article.data.image ? (<img src={article.data.image} >) : <div/>}
 
     <div class='px-2 w-full max-w-7xl py-2 m-auto'>
-        <Card colorSet='var(--light-grey)' class='p-10 rounded-2xl'>
+        <div class='card card-grey text-justify p-10 rounded-2xl'>
             <div class='content'>
                 <Content/>
             </div>
-        </Card>
+        </div>
     </div>
 </Layout>
 */

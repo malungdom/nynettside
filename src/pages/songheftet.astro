@@ -1,6 +1,5 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Card from "@components/ui/card.astro";
 
 import '@styles/globals.css';
 
@@ -25,8 +24,7 @@ const songData = await Promise.all(
     <h1 class='text-headline text-center pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
     <section>
         <div class='margined grid text-center items-center gap-[var(--hl-con-gap)]'>
-            <!--Card colorSet='var(--light-grey)' borderwidth='3px' class='grid grid-cols-2 md:grid-cols-5 rounded-2xl p-10'-->
-            <div class='shadow-2xl shadow-[0_5px_10px_rgba(0,0,0,0.5)] hover:shadow-[0_10px_33px_rgba(0,0,0,0.5)] duration-600 bg-[var(--light-grey)] border-[0px] grid grid-cols-2 md:grid-cols-5 rounded-2xl p-10'>
+            <div class='card card-grey grid grid-cols-2 md:grid-cols-5 rounded-2xl p-10'>
                 <div class='col-span-2 md:col-span-5 grid md:grid-cols-5'>
                     <h1 class='text-center text-headline md:col-start-2 col-span-2 md:col-span-3 py-10'>Songkatalogen vår</h1>
                     <button id='lucky-button' class='button md:col-start-2 col-span-2 md:col-span-3 bg-[var(--main-green)]'>
@@ -43,7 +41,6 @@ const songData = await Promise.all(
                     </button>
                 ))}
             </div>
-            <!--/Card-->
         </div>
     </section>
     <section class='bg-[var(--light-blue)] py-[var(--hl-con-gap)]'>

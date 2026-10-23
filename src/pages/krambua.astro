@@ -1,11 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import KrambuApplet from '@components/krambua/applet';
+
+const items = await getCollection('krambuvarer');
 ---
 
 
 <html>
 	<body>
 		<Layout currentPage = '/krambua'>
+			<section class='margined text-center grid gap-(--hl-con-gap)'>
+				<h1 class='justify-center pt-(--hl-con-gap)'>Krambua</h1>
+				<p>Norsk målungdom sel tingfang som bøker, klede og anna!</p>
+				<KrambuApplet items={items} client:load />	
+			</section>
 		</Layout>
 	</body>
 </html>

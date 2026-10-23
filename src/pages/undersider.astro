@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/ui/card.astro";
 import '../styles/globals.css';
 
 import { getCollection } from "astro:content";
@@ -9,11 +8,11 @@ const artiklar = await getCollection('artiklar');
 ---
 
 <Layout>
-    <Card>
+    <div class='card card-grey text-justify'>
         {artiklar.map(artikkel => (
             <p class='text-body'>
                 <a href = {artikkel.data.slug} class='textLink'> {artikkel.data.slug} </a>
             </p>
         ))}
-    </Card>
+    </div>
 </Layout>
