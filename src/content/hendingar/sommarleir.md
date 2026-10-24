@@ -4,7 +4,7 @@ date: 2026-07-08
 enddate: 2026-07-12
 place: Gjemnes
 slug: /sommarleir-2026
-image: /src/assets/images/erlendaasen.png
+image: /erlendaasen.png
 ---
 
 # Praktisk

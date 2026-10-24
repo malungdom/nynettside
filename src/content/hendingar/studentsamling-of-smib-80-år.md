@@ -4,7 +4,7 @@ date: 2026-10-23
 enddate: 2026-10-25
 place: Bergen
 slug: /smib-studentsamling-2026
-image: /src/assets/images/bilde 5.png
+image: /bilde 5.png
 ---
  
 23. oktober har Studentmållaget i Bergen 80-årsjubileum. I dette høvet skipar me til studentsamling i Bergen med kjekke innleiingar, aktivitetar og glorifisering av verdas vakraste by Bergen 23.-25. oktober. Me vonar så mange studentar som mogleg ønskjer å feire denne høgtidlege hendinga med oss Er du over 18, og i NMU, kan du vere med sjølv om du ikkje studerer. Deltaking og reise blir dekt!
