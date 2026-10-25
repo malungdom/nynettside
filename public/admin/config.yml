@@ -73,5 +73,5 @@ local_backend: true
 
 backend:
   name: github
-  repo: ohovden/malungdom
+  repo: malungdom/nynettside
   branch: main
