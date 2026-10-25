@@ -21,30 +21,26 @@ const songData = await Promise.all(
 ---
 
 <Layout class='bg-[var(--light-blue)]'>
-    <h1 class='text-headline text-center pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
-    <section >
-	    <button id='jump-button'  class='button sticky top-[100svh] -translate-y-2/3 w-full mx-100 z-100  md:hidden md:col-start-2 col-span-2 md:col-span-3 bg-[var(--main-green)]'>
-		<a href='#song-anchor' class='w-full h-full'>
-       			<p class='text-white text-subhead'>Gå til songteksten</p>
-        	</a>
-   	</button>
+    <h1 class='page-title text-headline text-center px-5 pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
+    <section class='overflow-x-clip'>
+        <a href='#song-anchor' class='button jump-mobile flex items-center justify-center sticky top-[100svh] -translate-y-2/3 z-100 md:hidden bg-[var(--main-green)]'>
+            <p class='text-white text-subhead'>Gå til songteksten</p>
+        </a>
         <div class='margined grid text-center items-center gap-[var(--hl-con-gap)]'>
-            <div class='card card-grey grid grid-cols-2 md:grid-cols-5 rounded-2xl p-10'>
-                <div class='col-span-2 md:col-span-5 grid md:grid-cols-5'>
-                    <h1 class='text-center text-headline md:col-start-2 col-span-2 md:col-span-3 py-10'>Songkatalogen vår</h1>
-                    <button id='lucky-button' class='button md:col-start-2 col-span-2 md:col-span-3 bg-[var(--main-green)]'>
+            <div class='card card-grey grid grid-cols-2 md:grid-cols-5 rounded-2xl p-3 md:p-10'>
+                <div class='col-span-2 md:col-span-5 grid grid-cols-1 md:grid-cols-5'>
+                    <h1 class='catalog-title text-center text-headline md:col-start-2 md:col-span-3 py-6 md:py-10'>Songkatalogen vår</h1>
+                    <button id='lucky-button' class='button md:col-start-2 md:col-span-3 bg-[var(--main-green)]'>
                         <p class='text-white text-subhead'>Prøv lukka!</p>
                     </button>
-		    <button id='jump-button'  class='button max-md:hidden md:col-start-2 col-span-2 md:col-span-3 bg-[var(--main-green)]'>
-			<a href='#song-anchor' class='w-full h-full'>
-                        	<p class='text-white text-subhead'>Gå til songteksten</p>
-			</a>
-		    </button>
+                    <a href='#song-anchor' class='button flex items-center justify-center max-md:hidden md:col-start-2 md:col-span-3 bg-[var(--main-green)]'>
+                        <p class='text-white text-subhead'>Gå til songteksten</p>
+                    </a>
                 </div>
                 <div class='hidden md:block md:col-span-5 md:h-[75px]' >
                 </div>
                 {songar.map((song, i) => ( 
-                    <button id={`knapp-${i}`} class='button bg-[var(--light-blue)] hover:bg-[var(--halflight-blue)] transition-colors duration-600 z-50'>
+                    <button id={`knapp-${i}`} class='button song-button bg-[var(--light-blue)] hover:bg-[var(--halflight-blue)] transition-colors duration-600 z-50'>
                         <p class='text-body'>
                             {song.data.title}
                         </p>
@@ -59,12 +55,12 @@ const songData = await Promise.all(
             {songData.map((song, i) => (
                 <div id={`song-${i}`} class='hidden'>
                     <div class='grid items-center align-center justify-center mx-auto'>
-                        <h1 class='pb-[var(--hl-con-gap)]'>{song.title}</h1>
+                        <h1 class='song-title pb-[var(--hl-con-gap)]'>{song.title}</h1>
                         <h2 class=''>Song: {song.author}</h2>
                         {song.tone && <h2 class=''>Tone: {song.tone}</h2>}
                     </div>
                     <div class='grid items-center align-center justify-center mx-auto pt-[var(--hl-con-gap)]'>
-                        <div class='content w-fit text-subhead'>
+                        <div class='content w-fit max-w-full text-subhead'>
                             <song.Content/>
                         </div>
                     </div>
@@ -92,13 +88,56 @@ const songData = await Promise.all(
     }
 
     .button {
+        min-width: 0;
         margin: 5px;
         height: 75px;
+        padding: 0 0.75rem;
         border: 0px solid black;
         border-radius: 10px;
+        overflow-wrap: anywhere;
         rotate: 0deg;
         scale: 1;
         transition: rotate 0s, scale 0.5s ease;
+    }
+
+
+    @media (max-width: 767px) {
+        .button {
+            height: auto;
+            min-height: 56px;
+            padding: 0.6rem 0.75rem;
+            margin: 4px;
+        }
+        .song-button p {
+            font-size: 0.9rem;
+            line-height: 1.25;
+        }
+        .page-title {
+            font-size: 2.25rem;
+            line-height: 1.15;
+        }
+        .catalog-title {
+            font-size: 2rem;
+            line-height: 1.15;
+        }
+        .song-title {
+            font-size: 2rem;
+            line-height: 1.15;
+            overflow-wrap: anywhere;
+        }
+        .content {
+            gap: 1.5rem;
+            margin-bottom: 30px;
+        }
+        .content :global(p) {
+            font-size: 1rem;
+        }
+        /* Sticky shortcut: full width minus the page gutter */
+        .button.jump-mobile {
+            /* negative bottom margin so the sticky button takes no space in the flow */
+            margin: 0 1.25rem -56px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
     }
 
 
