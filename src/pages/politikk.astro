@@ -17,6 +17,8 @@ const fraasegnerMetadata = await Promise.all(
 )
 
 
+const VISIBLE_COUNT = 5;
+
 const politiskProgram = [
 	{
 		title: 'Arbeids\u00ADprogram',
@@ -109,14 +111,131 @@ const politiskProgram = [
 			<h1 class='text-headline'>Fråsegner</h1>
 			<p class='italic text-body'>NMU vedtar fråsegner om aktuelle tema</p>
 		</div>
-		<nav class='grid grid-cols-1 bg-[var(--light-blue)] p-10 gap-5 md:gap-1 my-5 h-[50vh] overflow-y-auto'>
-				{fraasegnerMetadata.map((stmt, i) => (
-					<div id={`stmt-${i}`} class='card card-green py-10'>
+		<nav class='fraasegn-nav bg-[var(--light-blue)] p-10 my-5' data-expanded='false'>
+			<div class='grid grid-cols-1 gap-5 md:gap-1'>
+				{fraasegnerMetadata.slice(0, VISIBLE_COUNT).map((stmt, i) => (
+					<div id={`stmt-${i}`} class='card card-green1 py-10'>
 						<p class='text-center text-body text-black'>{stmt.title}</p>
 					</div>
 				))}
+			</div>
+			{fraasegnerMetadata.length > VISIBLE_COUNT && (
+				<>
+					<div class='fraasegn-extra' id='fraasegn-extra'>
+						<div class='fraasegn-extra-inner grid grid-cols-1 gap-5 md:gap-1'>
+							{fraasegnerMetadata.slice(VISIBLE_COUNT).map((stmt, j) => (
+								<div id={`stmt-${j + VISIBLE_COUNT}`} class='card card-green1 py-10 fraasegn-item' style={`--i: ${j}`}>
+									<p class='text-center text-body text-black'>{stmt.title}</p>
+								</div>
+							))}
+						</div>
+					</div>
+					<button type='button' class='fraasegn-toggle' aria-expanded='false' aria-controls='fraasegn-extra'>
+						<span class='fraasegn-toggle-label'>Vis alle fråsegner ({fraasegnerMetadata.length})</span>
+						<svg class='fraasegn-toggle-icon' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><polyline points='6 9 12 15 18 9'></polyline></svg>
+					</button>
+				</>
+			)}
 		</nav>
 	</div>
 	</section>
 	<FraasegnReact fraasegner={fraasegner} client:load />
 </Layout>
+
+<script>
+	const nav = document.querySelector('.fraasegn-nav');
+	const toggle = nav?.querySelector('.fraasegn-toggle');
+	const label = toggle?.querySelector('.fraasegn-toggle-label');
+	const extra = nav?.querySelector('.fraasegn-extra');
+	if (nav && toggle && label && extra) {
+		const openText = label.textContent;
+		extra.setAttribute('inert', '');
+		toggle.addEventListener('click', () => {
+			const expanded = nav.dataset.expanded !== 'true';
+			nav.dataset.expanded = String(expanded);
+			toggle.setAttribute('aria-expanded', String(expanded));
+			label.textContent = expanded ? 'Vis færre' : openText;
+			if (expanded) {
+				extra.removeAttribute('inert');
+			} else {
+				extra.setAttribute('inert', '');
+				if (nav.getBoundingClientRect().top < 0) {
+					nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			}
+		});
+	}
+</script>
+
+<style>
+	.fraasegn-extra {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.5s ease-in-out;
+	}
+	.fraasegn-extra-inner {
+		min-height: 0;
+		overflow: hidden;
+		transition: padding-top 0.5s ease-in-out;
+	}
+	.fraasegn-nav[data-expanded='true'] .fraasegn-extra {
+		grid-template-rows: 1fr;
+	}
+	/* Same gap as the visible list above, only once opened */
+	.fraasegn-nav[data-expanded='true'] .fraasegn-extra-inner {
+		padding-top: 1.25rem;
+	}
+	@media (min-width: 768px) {
+		.fraasegn-nav[data-expanded='true'] .fraasegn-extra-inner {
+			padding-top: 0.25rem;
+		}
+	}
+
+	.fraasegn-item {
+		opacity: 0;
+		transform: translateY(-8px);
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+	.fraasegn-nav[data-expanded='true'] .fraasegn-item {
+		opacity: 1;
+		transform: none;
+		transition-delay: calc(min(var(--i), 10) * 40ms + 100ms);
+	}
+
+	.fraasegn-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		margin: 1.5rem auto 0;
+		padding: 12px 20px;
+		border-radius: 4px;
+		background-color: var(--main-blue);
+		color: #fff;
+		font-family: 'Plus Jakarta Sans', sans-serif;
+		font-weight: 600;
+		font-size: var(--font-body);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+		transition: box-shadow 0.3s ease, transform 0.3s ease;
+	}
+	.fraasegn-toggle:hover {
+		transform: scale(1.04);
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	}
+	.fraasegn-toggle-icon {
+		transition: transform 0.4s ease;
+	}
+	.fraasegn-nav[data-expanded='true'] .fraasegn-toggle-icon {
+		transform: rotate(180deg);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.fraasegn-extra,
+		.fraasegn-extra-inner,
+		.fraasegn-item,
+		.fraasegn-toggle-icon {
+			transition: none !important;
+		}
+	}
+</style>
