@@ -1,0 +1,17 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout>
+    <h1>Send inn klage</h1>
+    <form class='flex flex-col' action="https://script.google.com/macros/s/AKfycbwSHxwjnUFyK1dxptj7y6ffI_ZNxA1O71TqshZgHq0T0CHrT7xJNeQqAeY0E17Ic_IRZg/exec" method="POST">
+        <input name="name" placeholder="Name" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <textarea name="message" required></textarea>
+
+        <!-- honeypot, hidden from humans -->
+        <input name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+        <button type="submit">Send</button>
+    </form>
+</Layout>
