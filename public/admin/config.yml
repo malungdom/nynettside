@@ -75,3 +75,4 @@ backend:
   name: github
   repo: malungdom/nynettside
   branch: main
+  base_url: https://auth.malungdom.no
