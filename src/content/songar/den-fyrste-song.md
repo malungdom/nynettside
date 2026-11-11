@@ -2,6 +2,8 @@
 title: Den fyrste song
 author: Per Sivle
 tone: Lars Søraas
+offisiell: true
+oliver: false
 ---
 
 Den fyrste song eg høyra fekk,

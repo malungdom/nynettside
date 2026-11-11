@@ -1,8 +1,11 @@
 ---
 title: Småsporven
 author: Arne Garborg
-tone: 
+tone: ''
+offisiell: true
+oliver: true
 ---
+
 Småsporven gjeng i tunet og tippar korn og ribbar strå,
 og hev so god ei une og lær åt katten grå.
 Pip, pip det so seg lagar, alle dagar, 

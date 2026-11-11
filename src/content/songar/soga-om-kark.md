@@ -1,8 +1,11 @@
 ---
 title: Soga om Kark
 author: Sæmund Fiskvik
-tone: 
+tone: ''
+offisiell: true
+oliver: true
 ---
+
 Og Håkon var oppi Gauldal
 på gjestebod eit sted.
 I Ladejarlen sitt fylgje

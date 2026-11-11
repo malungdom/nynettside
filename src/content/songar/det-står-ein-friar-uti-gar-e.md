@@ -2,6 +2,8 @@
 title: Det står ein friar uti gar'e
 author: Trad.
 tone: Norsk folketone
+offisiell: true
+oliver: false
 ---
 
 Det står ein friar uti gar'e, mor lilla. Hau hau.

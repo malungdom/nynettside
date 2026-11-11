@@ -2,6 +2,8 @@
 title: Eg veit ei liti gjenta
 author: Georg Robert Schrimer
 tone: Norsk folketone
+offisiell: true
+oliver: false
 ---
 
 Eg veit ei liti gjenta,

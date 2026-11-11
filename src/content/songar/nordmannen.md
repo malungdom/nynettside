@@ -2,7 +2,10 @@
 title: Nordmannen
 author: Ivar Aasen
 tone: J. M. Lindemann
+offisiell: true
+oliver: true
 ---
+
 Millom Bakkar og Berg ut med Havet
 heve Nordmannen fenget sin Heim,
 der han sjølv heve Tufterna gravet

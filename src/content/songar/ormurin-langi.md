@@ -2,7 +2,10 @@
 title: Ormen Lange (færøysk)
 author: Jens Christian Djuurhus
 tone: Færøysk folketone
+offisiell: false
+oliver: true
 ---
+
 Viljið tær hoyra kvæði mítt,
 viljið tær orðum trúgva,
 um hann Ólav Tryggvason,

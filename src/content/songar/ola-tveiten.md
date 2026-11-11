@@ -2,7 +2,10 @@
 title: Ola Tveiten
 author: Lillebjørn Nilsen
 tone: Lillebjørn Nilsen
+offisiell: true
+oliver: true
 ---
+
 Eg heiter Ola Tveiten
 og eg er ein arbeidsmann,
 eg eig ein traktor og meg sjøl

@@ -2,6 +2,8 @@
 title: Eg heiter Anne Knutsdotter
 author: Claus Pavels Riis
 tone: Norsk folketone
+offisiell: true
+oliver: true
 ---
 
 Eg heiter Anne Knutsdotter,

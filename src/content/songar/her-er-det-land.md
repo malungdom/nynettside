@@ -2,7 +2,10 @@
 title: Her er det land
 author: Ivar Aasen
 tone: ''
+offisiell: true
+oliver: true
 ---
+
 Her er det land som hugar meg best,
 og hit hev eg lengtat lenge:
 her var det stødt som hugen var fest

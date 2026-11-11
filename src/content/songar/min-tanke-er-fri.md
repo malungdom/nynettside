@@ -2,7 +2,10 @@
 title: Min tanke er fri
 author: Trad., tysk, norsk omsetjing v/ Johannes Gjerdåker
 tone: Tysk Folketone
+offisiell: true
+oliver: true
 ---
+
 Min tanke er fri,
 kven trur du kan få han?
 Han skundar forbi,

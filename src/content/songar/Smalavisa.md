@@ -2,6 +2,8 @@
 title: Smalavisa
 author: Ottar Wiik
 tone: Ottar Wiik
+offisiell: true
+oliver: false
 ---
 Ja, låna du meg no eit øyra eller to,
 så ska du få eit hove og ein liter blo,

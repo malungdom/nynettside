@@ -2,6 +2,8 @@
 title: Kallen og katten
 author: Jacob Sande
 tone: 
+offisiell: true
+oliver: false
 ---
 Han Simon i Støa og katten
 var mette av alder og år

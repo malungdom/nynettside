@@ -2,6 +2,8 @@
 title: Dei gamle fjelli
 author: Ivar Aasen
 tone: Norsk folketone
+offisiell: true
+oliver: true
 ---
 
 Dei gamle fjell i syningom

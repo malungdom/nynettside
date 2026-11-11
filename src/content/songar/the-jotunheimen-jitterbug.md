@@ -2,6 +2,8 @@
 title: The Jotunheimen jitterbug
 author: Hartvig Kiran
 tone: Norsk folketone
+offisiell: true
+oliver: false
 ---
 Hu hei! Kor er det vel friskt og lett
 uppå fjellet, uppå fjellet!

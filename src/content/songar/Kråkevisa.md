@@ -2,7 +2,10 @@
 title: Kråkevisa
 author: Trad.
 tone: Trad.
+offisiell: true
+oliver: true
 ---
+
 Mannen gjekk seg i veaskog,
 hei, fara, i veaskog.
 Då sat det ei kråka i lunden og gol!

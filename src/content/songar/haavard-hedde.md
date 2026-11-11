@@ -2,6 +2,8 @@
 title: Håvard Hedde
 author: Trad.
 tone: Trad.
+offisiell: true
+oliver: false
 ---
 Eg heiter Håvard Hedde og er so ven ein kar.
 No vil eg burt og gifta meg og rydja meg ein gard.

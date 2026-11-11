@@ -2,6 +2,8 @@
 title: Gagnløysa
 author: Ivar Aasen
 tone: ''
+offisiell: true
+oliver: true
 ---
 
 Eg vil so gjerne syngja og veit meg ingjen song;

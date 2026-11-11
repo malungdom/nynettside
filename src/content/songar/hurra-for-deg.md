@@ -2,6 +2,8 @@
 title: Hurra for deg!
 author: Fritt etter Margrethe Munthe
 tone: 'Trad.'
+offisiell: true
+oliver: false
 ---
 Hurra for deg som fyller ditt år!
 Ja, deg ynskjer me til lukka!

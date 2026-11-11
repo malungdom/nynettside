@@ -2,6 +2,8 @@
 title: Nordmannssong
 author: Ivar Aasen
 tone: 
+offisiell: true
+oliver: false
 ---
 Dei vil alltid klaga og kyta
 at me ganga so seint og so smått:

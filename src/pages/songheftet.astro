@@ -8,8 +8,23 @@ import { render } from "astro:content";
 
 const songar = await getCollection('songar')
 
+// Two song lists from the same collection. A song can be on both.
+// The ids run on from one list to the next, so the official list gets
+// 0..n-1 and Oliver's list continues from n. No index is shared.
+const listDefs = [
+    { key: 'offisiell', label: 'Offisiell', songs: songar.filter((song) => song.data.offisiell === true) },
+    { key: 'oliver', label: 'Oliver si liste', songs: songar.filter((song) => song.data.oliver === true) },
+]
+
+let nextIndex = 0
+const lists = listDefs.map((list) => {
+    const start = nextIndex
+    nextIndex += list.songs.length
+    return { ...list, start, length: list.songs.length }
+})
+
 const songData = await Promise.all(
-    songar.map(async (song) => {
+    lists.flatMap((list) => list.songs).map(async (song) => {
         return {
             title: song.data.title,
             author: song.data.author,
@@ -18,12 +33,26 @@ const songData = await Promise.all(
         }
     })
 )
+
+// Only what the browser script needs: where each list starts and how long it is
+const listRanges = Object.fromEntries(lists.map((list) => [list.key, { start: list.start, length: list.length }]))
+const defaultList = lists[0].key
 ---
 
 <Layout class='bg-[var(--light-blue)]'>
-    <h1 class='page-title text-headline text-center px-5 pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
+    <div class='flex flex-col items-center px-5'>
+        <h1 class='page-title text-headline text-center pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
+        <div id='list-toggle' class='list-toggle' role='group' aria-label='Vel songliste' data-active={defaultList}>
+            <span class='list-toggle-pill' aria-hidden='true'></span>
+            {lists.map((list) => (
+                <button type='button' class='list-toggle-option' data-list={list.key} aria-pressed={list.key === defaultList ? 'true' : 'false'}>
+                    {list.label}
+                </button>
+            ))}
+        </div>
+    </div>
     <section class='overflow-x-clip'>
-        <a href='#song-anchor' class='button jump-mobile flex items-center justify-center sticky top-[100svh] -translate-y-2/3 z-100 md:hidden bg-[var(--main-green)]'>
+        <a href='#song-anchor' data-jump-to-song class='button jump-mobile flex items-center justify-center sticky top-[100svh] -translate-y-2/3 z-100 md:hidden bg-[var(--main-green)]'>
             <p class='text-white text-subhead'>Gå til songteksten</p>
         </a>
         <div class='margined grid text-center items-center gap-[var(--hl-con-gap)]'>
@@ -33,18 +62,22 @@ const songData = await Promise.all(
                     <button id='lucky-button' class='button md:col-start-2 md:col-span-3 bg-[var(--main-green)]'>
                         <p class='text-white text-subhead'>Prøv lukka!</p>
                     </button>
-                    <a href='#song-anchor' class='button flex items-center justify-center max-md:hidden md:col-start-2 md:col-span-3 bg-[var(--main-green)]'>
+                    <a href='#song-anchor' data-jump-to-song class='button flex items-center justify-center max-md:hidden md:col-start-2 md:col-span-3 bg-[var(--main-green)]'>
                         <p class='text-white text-subhead'>Gå til songteksten</p>
                     </a>
                 </div>
                 <div class='hidden md:block md:col-span-5 md:h-[75px]' >
                 </div>
-                {songar.map((song, i) => ( 
-                    <button id={`knapp-${i}`} class='button song-button bg-[var(--light-blue)] hover:bg-[var(--halflight-blue)] transition-colors duration-600 z-50'>
-                        <p class='text-body'>
-                            {song.data.title}
-                        </p>
-                    </button>
+                {lists.map((list) => (
+                    <div class='song-list contents' data-list={list.key} hidden={list.key !== defaultList}>
+                        {list.songs.map((song, j) => (
+                            <button id={`knapp-${list.start + j}`} class='button song-button bg-[var(--light-blue)] hover:bg-[var(--halflight-blue)] transition-colors duration-600 z-50'>
+                                <p class='text-body'>
+                                    {song.data.title}
+                                </p>
+                            </button>
+                        ))}
+                    </div>
                 ))}
             </div>
 		<div id='song-anchor' class='max-md:pt-[15svh]'></div>
@@ -71,8 +104,55 @@ const songData = await Promise.all(
 </Layout>
 
 <style>
-    .selected {
-        
+    /* Two-option switch with a pill that slides to the active side */
+    .list-toggle {
+        position: relative;
+        display: inline-grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 1.25rem;
+        padding: 4px;
+        border-radius: 999px;
+        background-color: #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    .list-toggle-pill {
+        position: absolute;
+        inset: 4px auto 4px 4px;
+        width: calc(50% - 4px);
+        border-radius: 999px;
+        background-color: var(--main-blue);
+        transition: translate 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .list-toggle[data-active='oliver'] .list-toggle-pill {
+        translate: 100% 0;
+    }
+    .list-toggle-option {
+        position: relative;
+        z-index: 1;
+        padding: 0.5rem 1.1rem;
+        border-radius: 999px;
+        font-size: var(--font-body);
+        font-weight: 600;
+        white-space: nowrap;
+        color: #000;
+        cursor: pointer;
+        transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .list-toggle-option[aria-pressed='true'] {
+        color: #fff;
+    }
+    .list-toggle-option:focus-visible {
+        outline: 2px solid var(--main-darkgreen);
+        outline-offset: 2px;
+    }
+    .list-toggle.is-locked .list-toggle-option {
+        cursor: wait;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .list-toggle-pill,
+        .list-toggle-option {
+            transition: none;
+        }
     }
 
     .content {
@@ -153,26 +233,37 @@ const songData = await Promise.all(
     }
 </style>
 
-<script define:vars={{ songData }}>
-    let test = false;
-    let currentSong = document.getElementById(`song-0`)
-    let currentButton = document.getElementById(`knapp-0`)
-    const len = songData.length;
-    let currentI = 0;
+<script define:vars={{ listRanges, defaultList }}>
+    let currentSong = null
+    let currentButton = null
+    let currentI = -1;
+    let activeList = defaultList;
+    let spinning = false;
 
-    for (const [i, song] of songData.entries()) {
+    const total = Object.values(listRanges).reduce((sum, r) => sum + r.length, 0);
+    for (let i = 0; i < total; i++) {
         const knappEl = document.getElementById(`knapp-${i}`)
 
         knappEl?.addEventListener('click', () => {
-	    if (i != currentI) {    
-	    	switchSong(i);
-	    }
-	
-	});
+            if (i != currentI && !spinning) {
+                switchSong(i);
+            }
+        });
+    }
+
+    // Next index inside the active list, wrapping round at the end
+    function nextInActiveList() {
+        const { start, length } = listRanges[activeList];
+        if (currentI < start || currentI >= start + length) return start;
+        return start + ((currentI - start + 1) % length);
     }
 
     const luckyButton = document.getElementById('lucky-button');
     luckyButton?.addEventListener('click', async () => {
+        if (spinning || listRanges[activeList].length === 0) return;
+        spinning = true;
+        toggle?.classList.add('is-locked');
+
         const min = 30;
         const max = 50;
         const shift = Math.floor(Math.random() * (max - min) + min);
@@ -180,15 +271,15 @@ const songData = await Promise.all(
         const totalTime = 5;
         let times = [];
         let sum = 0;
-        for (i = shift; i > 0; i--) {
+        for (let i = shift; i > 0; i--) {
             const t = 1 - Math.pow((shift - i), 3);
             times.push(t);
             sum += t;
         }
         const factor = sum / totalTime;
 
-        for (i = 0; i < shift; i++) {
-            switchSong((currentI + 1) % len);
+        for (let i = 0; i < shift; i++) {
+            switchSong(nextInActiveList());
             await sleep(times[i] / factor * 1000);
         }
 
@@ -202,14 +293,43 @@ const songData = await Promise.all(
         knappEl?.classList.remove('z-100');
         knappEl?.classList.add('z-50');
 
+        spinning = false;
+        toggle?.classList.remove('is-locked');
     })
+
+    const toggle = document.getElementById('list-toggle');
+    toggle?.querySelectorAll('.list-toggle-option').forEach((option) => {
+        option.addEventListener('click', () => {
+            const key = option.dataset.list;
+            if (key === activeList || spinning) return;
+            setActiveList(key);
+        });
+    });
+
+    function setActiveList(key) {
+        activeList = key;
+        toggle.dataset.active = key;
+        toggle.querySelectorAll('.list-toggle-option').forEach((option) => {
+            option.setAttribute('aria-pressed', String(option.dataset.list === key));
+        });
+        document.querySelectorAll('.song-list').forEach((list) => {
+            list.hidden = list.dataset.list !== key;
+        });
+
+        // The open song belongs to the other list, so close it
+        currentSong?.classList.add('hidden');
+        currentButton?.classList.remove('selected');
+        currentSong = null;
+        currentButton = null;
+        currentI = -1;
+    }
 
     function switchSong(i) {
         const knappEl = document.getElementById(`knapp-${i}`)
         const songEl = document.getElementById(`song-${i}`)
 
-        songEl?.classList.remove('hidden');
         currentSong?.classList.add('hidden');
+        songEl?.classList.remove('hidden');
         currentSong = songEl;
 
         currentButton?.classList.remove('selected');
@@ -218,6 +338,41 @@ const songData = await Promise.all(
         currentButton = knappEl;
         currentI = i;
     }
+
+    // "Gå til songteksten": glide down to the open song's headline.
+    // The banner at the top is fixed, so scrolling the headline to the very top
+    // would hide it behind the banner. That is why the #song-anchor div sits
+    // above the songs. Here we measure the banner's real height on each click
+    // and stop the scroll that far above the headline, plus some breathing room.
+    // Without JavaScript the links still jump to #song-anchor.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const banner = document.getElementById('site-banner');
+
+    function songScrollTarget() {
+        const target = currentSong?.querySelector('.song-title') ?? document.getElementById('song-section');
+        if (!target) return null;
+        const bannerBottom = banner ? Math.max(0, banner.getBoundingClientRect().bottom) : 0;
+        const breathingRoom = window.innerWidth < 768 ? 32 : 56;
+        return target.getBoundingClientRect().top + window.scrollY - bannerBottom - breathingRoom;
+    }
+
+    document.querySelectorAll('[data-jump-to-song]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            const top = songScrollTarget();
+            if (top === null) return; // fall back to the plain anchor jump
+            event.preventDefault();
+            const behavior = reduceMotion.matches ? 'auto' : 'smooth';
+            window.scrollTo({ top, behavior });
+
+            // If the layout shifted while scrolling (mobile address bar, late fonts), correct once at the end
+            window.addEventListener('scrollend', () => {
+                const corrected = songScrollTarget();
+                if (corrected !== null && Math.abs(corrected - window.scrollY) > 4) {
+                    window.scrollTo({ top: corrected, behavior });
+                }
+            }, { once: true });
+        });
+    });
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

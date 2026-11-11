@@ -2,6 +2,8 @@
 title: Blåmann, blåmann
 author: Aasmund Olavsson Vinje
 tone: Anne Haavie
+offisiell: true
+oliver: true
 ---
 
 Blåmann, Blåmann, bukken min!

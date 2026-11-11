@@ -2,6 +2,8 @@
 title: Songen om folkemålet
 author: Jahn-Arill Skogholt
 tone: 
+offisiell: true
+oliver: false
 ---
 I året tretten åttini fekk Margaret av Danmark
 all makt i dei nordiske land.

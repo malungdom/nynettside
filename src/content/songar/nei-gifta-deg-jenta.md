@@ -1,8 +1,11 @@
 ---
 title: Nei, gifta deg, jenta
 author: Hordabanden
-tone: 
+tone: ''
+offisiell: true
+oliver: true
 ---
+
 Nei, gifta deg jenta – da raor eg deg ifrao,
 byssan lullan, lullan, lullan, lullan lei.
 Kjeme da eit mannabein – du bite ikkje pao,

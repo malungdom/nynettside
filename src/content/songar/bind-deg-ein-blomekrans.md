@@ -2,6 +2,8 @@
 title: Bind deg ein blomekrans
 author: Trad.
 tone: Norsk folketone
+offisiell: true
+oliver: false
 ---
 
 Bind deg ein blomekrans,

@@ -52,7 +52,6 @@
     --main-lav: #cd95f4;
     --light-lav: #d4badd;
     --text-lav: #b20cbe;
-    --dark-lav: #da25b9;
     --dark-lav: #230024;
 
     --main-lgrey: #f3f9fa00;
@@ -73,6 +72,17 @@
     font-family: "Source Sans Pro", sans-serif;
     font-family: "Plus Jakarta Sans", sans-serif;
     background-color: #ffffff;
+
+    ::selection {
+      background-color: var(--main-green);
+      color: #ffffff;
+    }
+
+    ::-moz-selection {
+      background-color: var(--main-green);
+      color: #ffffff;
+    }
+
   }
 
   h1 {

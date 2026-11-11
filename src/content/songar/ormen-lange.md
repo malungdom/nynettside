@@ -2,7 +2,10 @@
 title: Ormen Lange (kort)
 author: Jens Christian Djuurhus, til norsk v/ Per Sivle
 tone: Færøysk folketone
+offisiell: true
+oliver: true
 ---
+
 Vilja de høyra kvedet mitt,
 og vilja de ordi tru,
 om han Olav Trygvason

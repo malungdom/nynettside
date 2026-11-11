@@ -2,6 +2,8 @@
 title: Mot i bringa
 author: Johan Nicolisen, norsk omsetjing / Rasmus Stauri
 tone: 
+offisiell: true
+oliver: false
 ---
 Mot i bringa, vit i panna,
 stål i bein og armar

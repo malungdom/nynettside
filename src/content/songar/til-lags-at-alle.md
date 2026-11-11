@@ -2,7 +2,10 @@
 title: Til lags åt alle
 author: Ivar Aasen
 tone: Nystev
+offisiell: true
+oliver: true
 ---
+
 Til lags åt alle kann ingen gjera,
 det er no gamalt og vil so vera.
 Eg tykkjer stødt, at det høver best
