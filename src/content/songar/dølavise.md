@@ -2,6 +2,8 @@
 title: Dølavise
 author: Ivar Mortensson Egnund
 tone: Norsk folketone
+offisiell: true
+oliver: true
 ---
 
 Flaumen går, i Norig er vår,
