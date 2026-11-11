@@ -65,6 +65,8 @@ collections:
       - {label: "Tittel", name: 'title', widget: "string"}
       - {label: "Tekstforfattar", name: 'author', widget: "string"}
       - {required: false, label: "Tone", name: 'tone', widget: "string"}
+      - {label: "Offisiell", name: offisiell, widget: "boolean"}
+      - {label: "I Olivers songhefte", name: oliver, widget: "boolean"}
       - {label: "Songtekst", name: body, widget: "markdown"}
 
 

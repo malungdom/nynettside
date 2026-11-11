@@ -73,7 +73,7 @@ const politiskProgram = [
 	<div>
 	<section class='grid grid-cols-1 md:grid-cols-[3fr_3fr] bg-[var(--light-blue)] bg-white shadow-0xl'>
 		<div class='flex flex-col gap-10 justify-around pl-[var(--bleed)] md:pr-20 py-15 my-0'>
-			<h1 class='text-center md:text-[3cqi] bg-[var(--main-green)] rounded-xl text-white p-5'>Den politiske verksemda vår</h1>
+			<h1 class='text-center md:text-[3cqi] bg-[var(--main-green)] rounded-0xl text-white p-5'>Den politiske verksemda vår</h1>
 			<p class='text-subhead text-left italic'>Norsk Målungdom verjar og fremjar interessene til nynorsk og dialektane og samarbeider aktivt med Noregs Mållag for å få politiske gjennomslag for nynorsk.
 			</p>
 			<p class='text-subhead italic'>
@@ -90,16 +90,10 @@ const politiskProgram = [
 	<section class='margined section-3-2 relative items-start'>
 		<!--Element for arbeidsprogram-->
 		<!--nav class='card bg-[var(--light-grey)] p-5 grid grid-cols-1 gap-5 md:gap-1 mx-5 md:absolute md:inset-0 md:col-start-2 overflow-scroll'-->
-		<nav class='grid grid-cols-1 gap-2 p-0 bg-[var(--light-grey)] bg-white'>
+		<nav class='program-nav grid grid-cols-1 gap-2 p-0'>
 				{politiskProgram.map((program, i) => ( 
-					<a href={program.path} class='w-full ease-in-out isolate'>
-						<!-- 
-						<div class=`card ${i % 2 == 0 ? 'bg-[var(--main-green)]' : 'bg-[var(--main-green)]'} py-5 `>
-							<p class='px-5 text-left text-body text-[var(--main-blue)] text-white font-bold sunderline'>{program.title}</p>
-						</div>-->
-						<div class=`card ${i % 2 == 0 ? 'card-grey' : 'card-grey'} py-5 hover:bg-[var(--main-blue)] hover:text-white transition-colors duration-100`>
-							<p class='px-5 w-full text-left text-body '>{program.title}</p>
-						</div>
+					<a href={program.path} class='program-link bg-white'>
+						<p class='px-5 w-full text-left text-body'>{program.title}</p>
 					</a>
 				))}
 		</nav>
@@ -122,8 +116,8 @@ const politiskProgram = [
 		<nav class='fraasegn-nav my-5' data-expanded='false'>
 			<div class='grid grid-cols-1 gap-5 md:gap-2'>
 				{fraasegnerMetadata.slice(0, VISIBLE_COUNT).map((stmt, i) => (
-					<div id={`stmt-${i}`} class='card card-green py-5'>
-						<p class='text-center text-body text-black'>{stmt.title}</p>
+					<div id={`stmt-${i}`} class='bg-[var(--light-blue)] program-link'>
+						<p class='px-5 text-left text-body text-black'>{stmt.title}</p>
 					</div>
 				))}
 			</div>
@@ -132,8 +126,8 @@ const politiskProgram = [
 					<div class='fraasegn-extra' id='fraasegn-extra'>
 						<div class='fraasegn-extra-inner grid grid-cols-1 gap-5 md:gap-1'>
 							{fraasegnerMetadata.slice(VISIBLE_COUNT).map((stmt, j) => (
-								<div id={`stmt-${j + VISIBLE_COUNT}`} class='card bg-[var(--main-green)] py-5' style={`--i: ${j}`}>
-									<p class='text-left text-body text-white'>{stmt.title}</p>
+								<div id={`stmt-${j + VISIBLE_COUNT}`} class='program-link bg-[var(--light-blue)]' style={`--i: ${j}`}>
+									<p class='px-5 text-left text-body text-white'>{stmt.title}</p>
 								</div>
 							))}
 						</div>
@@ -176,6 +170,52 @@ const politiskProgram = [
 </script>
 
 <style>
+	/* Program links: instant highlight in, short fade out.
+	   Background and text share one transition so they always move together. */
+	.program-nav {
+		--hover-in: 40ms;
+		--hover-out: 280ms;
+	}
+	.program-link {
+		position: relative;
+		display: block;
+		padding-block: 1.25rem;
+		color: #000;
+		transition:
+			background-color var(--hover-out) cubic-bezier(0.25, 1, 0.5, 1),
+			color var(--hover-out) cubic-bezier(0.25, 1, 0.5, 1);
+	}
+	/* Stretch the hover area over half the gap on each side so the cursor never falls between rows */
+	.program-link::after {
+		content: '';
+		position: absolute;
+		inset: -0.25rem 0;
+	}
+	.program-link p {
+		color: inherit;
+		transition: none;
+	}
+	@media (hover: hover) {
+		.program-link:hover {
+			background-color: var(--main-blue);
+			color: #fff;
+			transition-duration: var(--hover-in);
+			transition-timing-function: linear;
+		}
+	}
+	.program-link:focus-visible {
+		background-color: var(--main-blue);
+		color: #fff;
+		outline: 2px solid var(--main-darkgreen);
+		outline-offset: 2px;
+		transition-duration: var(--hover-in);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.program-link {
+			transition: none;
+		}
+	}
+
 	.fraasegn-extra {
 		display: grid;
 		grid-template-rows: 0fr;

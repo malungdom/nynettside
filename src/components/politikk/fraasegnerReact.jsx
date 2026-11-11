@@ -47,18 +47,23 @@ export default function FraasegnListe({ fraasegner }) {
                     onClick={() => handleClose()}
                     style={{
                         opacity: open ? 1 : 0,
+                        // Hidden once closed so the full-screen blur layer isn't re-rendered on every repaint underneath it
+                        visibility: open ? 'visible' : 'hidden',
                         position: 'fixed',
                         inset: 0,
                         zIndex: 101,
                         width: '100%',
-                        backdropFilter: open ? 'blur(2px)' : 'blur(0px)',
-                        transition: 'backdrop-filter 0.3s ease, background-color 0.3s ease, opacity 0.3s ease',
+                        backdropFilter: open ? 'blur(2px)' : 'none',
+                        transition: open
+                            ? 'backdrop-filter 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, visibility 0s'
+                            : 'backdrop-filter 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s',
                     }}
                 />
                 <div className={styles.fraasegnCard} style={{
                     zIndex: '101',
                     transform: open ? 'translateY(3dvh) translate(-50%, -50%) ' : 'translate(-50%, 100vh)',
-                    transition: 'transform 0.3s ease',
+                    visibility: open ? 'visible' : 'hidden',
+                    transition: open ? 'transform 0.3s ease, visibility 0s' : 'transform 0.3s ease, visibility 0s linear 0.3s',
                 }}
                 onClick={(e) => e.stopPropagation()}>
                     <button onClick={() => handleClose()}>
