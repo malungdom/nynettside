@@ -2,6 +2,8 @@
 title: Alle mann hadde fota
 author: Trad.
 tone: ''
+offisiell: true
+oliver: false
 ---
 
 Alle mann hadde fota, min mann hadde ingen,
