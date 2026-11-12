@@ -50,10 +50,11 @@ let subpages = allItems
 ---
 
 <Layout>
-    <div class='w-full max-w-4xl mx-10 md:m-auto text-center gap-[var(--hl-con-gap)] pt-[var(--hl-con-gap)] grid grid-cols-1'>
-        <h1 class='text-headline'>{article.data.title}</h1>
+    <!-- Padding, not margin, for the side gutter: w-full plus margins made the page wider than the screen -->
+    <div class='w-full max-w-4xl px-5 md:px-0 mx-auto md:m-auto text-center gap-[var(--hl-con-gap)] pt-[var(--hl-con-gap)] grid grid-cols-1'>
+        <h1 class='text-headline break-words'>{article.data.title}</h1>
         {article.data.image ? <img src={article.data.image} class='w-full'> : <div/>}
-        <div class='content'>
+        <div class='content min-w-0'>
             <Content />
         </div>
     </div>
@@ -66,6 +67,15 @@ let subpages = allItems
         text-align: left;
         display: grid;
         gap: 3rem;
+        /* Long words and URLs wrap instead of widening the page */
+        overflow-wrap: break-word;
+    }
+    .content > * {
+        min-width: 0;
+    }
+    .content img,
+    .content table {
+        max-width: 100%;
     }
 
     .content p, .content ul, .content ol {
@@ -103,6 +113,7 @@ let subpages = allItems
     }
     .content p a {
         @apply inline-block transition-all duration-150 hover:translate-x-1;
+        max-width: 100%;
         color: var(--text-lav);
     }
 </style>

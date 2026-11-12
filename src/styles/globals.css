@@ -36,6 +36,7 @@
     --main-darkgreen: #081713;
     --dark-green: rgb(17, 41, 8);
     --dark-green: #000000;
+    --dark-green: #1f6b3f; 
     --light-green: #9dd893;
     --light-green: #b4d3a7;
     --light-green: #e2f8d9;
@@ -116,8 +117,18 @@
     @apply grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-[var(--hl-con-gap)];
   }
 
+  /* Follows the reader, centred in the space below the banner.
+     self-start keeps it its own height, so it can slide inside its grid row:
+     never above the top of the section, never below the end of the content
+     next to it, even when that content grows. --sticky-top is set by a script
+     in Layout.astro; the fallback is the old approximate centre. */
   .sticky-center {
-    @apply md:sticky md:top-[calc(50vh-var(--font-headline))];
+    @apply md:sticky md:self-start;
+  }
+  @media (width >= 48rem) {
+    .sticky-center {
+      top: var(--sticky-top, calc(50vh - var(--font-headline)));
+    }
   }
 
   .hero-text {
@@ -146,7 +157,7 @@
   }
 
   .rounded-standard {
-    border-radius: 0px;
+    border-radius: 5px;
   }
 
   .rounded-small {
@@ -165,9 +176,10 @@
   }
 }
 .text-link {
-  @apply inline-block transition-all duration-150 hover:translate-x-1 font-bold;
+  @apply inline-block transition-all duration-150 hover:translate-x-1;
   color: var(--text-lav);
 }
+
 
 @layer components {
   /* Card: shared surface for all card-like boxes.

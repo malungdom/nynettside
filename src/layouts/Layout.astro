@@ -40,6 +40,30 @@ import Footer from '@components/layout/footer.astro';
 			<slot />
 		</div>
 		<Footer/>
+		<script>
+			// Centre every .sticky-center block in the space below the fixed banner.
+			// Its own height can't be used in CSS, so measure it and set --sticky-top.
+			const stickies = document.querySelectorAll<HTMLElement>('.sticky-center');
+			if (stickies.length) {
+				const banner = document.getElementById('site-banner');
+				const margin = 16;
+				const place = () => {
+					const bannerBottom = banner ? Math.max(0, banner.getBoundingClientRect().bottom) : 0;
+					const space = window.innerHeight - bannerBottom;
+					stickies.forEach((el) => {
+						const centred = bannerBottom + (space - el.offsetHeight) / 2;
+						// Taller than the space: pin just under the banner instead
+						el.style.setProperty('--sticky-top', `${Math.round(Math.max(bannerBottom + margin, centred))}px`);
+					});
+				};
+				place();
+				window.addEventListener('resize', place);
+				const observer = new ResizeObserver(place);
+				stickies.forEach((el) => observer.observe(el));
+				if (banner) observer.observe(banner);
+				document.fonts.ready.then(place);
+			}
+		</script>
 	</body>
 </html>
 

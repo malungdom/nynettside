@@ -4,9 +4,21 @@ import Button from '../components/ui/button.astro'
 import FraasegnModal from '../components/politikk/fraasegner.astro';
 import FraasegnReact from '@components/politikk/fraasegnerReact';
 
+import '@styles/globals.css';
+
 import { getCollection } from 'astro:content';
 
-const fraasegner = await getCollection('fraasegner');
+// Newest first. The modal (FraasegnReact) finds each statement by its index
+// in this same array, so sort it here and not just the list below.
+// Same date: alphabetical by title. No date: last.
+const dateValue = (date: unknown) => {
+	const time = date ? new Date(date as string | number | Date).getTime() : NaN;
+	return Number.isNaN(time) ? -Infinity : time;
+};
+const fraasegner = (await getCollection('fraasegner')).sort((a, b) =>
+	dateValue(b.data.date) - dateValue(a.data.date) ||
+	String(a.data.title).localeCompare(String(b.data.title), 'nn')
+);
 const fraasegnerMetadata = await Promise.all(
 	fraasegner.map((fraasegn) => {
 		return {
@@ -43,7 +55,7 @@ const politiskProgram = [
 	},
 	{
 		title: 'Språk i akademia og høgare utdanning',
-		path: '/politikk/program/sprak-i-akademia-og-hogare-utdanning',
+		path: '/politikk/program/sprak-i-akademia',
 		image: '/politikk/kalender.png'
 
 	},
@@ -72,32 +84,32 @@ const politiskProgram = [
 	<!--Hero-seksjon -->
 	<div>
 	<section class='grid grid-cols-1 md:grid-cols-[3fr_3fr] bg-[var(--light-blue)] bg-white shadow-0xl'>
-		<div class='flex flex-col gap-10 justify-around pl-[var(--bleed)] md:pr-20 py-15 my-0'>
-			<h1 class='text-center md:text-[3cqi] bg-[var(--main-green)] rounded-0xl text-white p-5'>Den politiske verksemda vår</h1>
-			<p class='text-subhead text-left italic'>Norsk Målungdom verjar og fremjar interessene til nynorsk og dialektane og samarbeider aktivt med Noregs Mållag for å få politiske gjennomslag for nynorsk.
+		<div class='flex flex-col gap-10 justify-around md:pl-[var(--bleed)] md:pr-20 md:py-15 max-md:pb-10 my-0'>
+			<h1 class='text-center md:text-[3cqi] bg-[var(--main-green)] rounded-0xl max-md:rounded-none text-[#003d4d] p-5'>Den politiske verksemda vår</h1>
+			<p class='text-subhead text-left italic max-md:px-5'>Norsk Målungdom verjar og fremjar interessene til nynorsk og dialektane og samarbeider aktivt med Noregs Mållag for å få politiske gjennomslag for nynorsk.
 			</p>
-			<p class='text-subhead italic'>
+			<p class='text-subhead italic max-md:px-5'>
 			NMU utformar sin eigen politikk og arbeidsprogram og skriv fråsegner om aktuelle tema som du kan lesa her.
 			</p>
 		</div>
-		<div>
-			<img src='/marentalar.jpg' class='w-[100svw] overflow-visible' />
+		<div class='max-md:order-first'>
+			<img src='/marentalar.jpg' class='block w-full md:w-[100svw] overflow-visible' />
 		</div>
 	</section>
 	<!--Vanleg seksjon-->
 	<!--section class='flex flex-col text-center gap-[var(--hl-con-gap)] margined'-->
-	<div class='bg-[var(--light-blue)] py-40'>
+	<div class='bg-[var(--light-blue)] py-40 max-md:py-12'>
 	<section class='margined section-3-2 relative items-start'>
 		<!--Element for arbeidsprogram-->
 		<!--nav class='card bg-[var(--light-grey)] p-5 grid grid-cols-1 gap-5 md:gap-1 mx-5 md:absolute md:inset-0 md:col-start-2 overflow-scroll'-->
 		<nav class='program-nav grid grid-cols-1 gap-2 p-0'>
 				{politiskProgram.map((program, i) => ( 
-					<a href={program.path} class='program-link bg-white'>
+					<a href={program.path} class='program-link bg-white rounded-standard'>
 						<p class='px-5 w-full text-left text-body'>{program.title}</p>
 					</a>
 				))}
 		</nav>
-		<div class='sticky-center grid gap-[var(--hl-con-gap)]'>
+		<div class='sticky-center grid gap-[var(--hl-con-gap)] max-md:order-first'>
 			<h1 class='text-headline'>Politiske program</h1>
 			<p class='italic text-subhead'>NMU vedtar ulike politiske program som legg grunnlag for organisajonen. Dei politiske programma er tankegrunnlaget til dei politiske standpunkta våre.</p>
 		</div>
@@ -114,9 +126,9 @@ const politiskProgram = [
 			<p class='italic text-subhead'>NMU uttalar seg om aktuelle tema</p>
 		</div>
 		<nav class='fraasegn-nav my-5' data-expanded='false'>
-			<div class='grid grid-cols-1 gap-5 md:gap-2'>
+			<div class='grid grid-cols-1 gap-2 md:gap-2'>
 				{fraasegnerMetadata.slice(0, VISIBLE_COUNT).map((stmt, i) => (
-					<div id={`stmt-${i}`} class='bg-[var(--light-blue)] program-link'>
+					<div id={`stmt-${i}`} class='bg-[var(--light-blue)] program-link rounded-standard'>
 						<p class='px-5 text-left text-body text-black'>{stmt.title}</p>
 					</div>
 				))}
@@ -124,9 +136,9 @@ const politiskProgram = [
 			{fraasegnerMetadata.length > VISIBLE_COUNT && (
 				<>
 					<div class='fraasegn-extra' id='fraasegn-extra'>
-						<div class='fraasegn-extra-inner grid grid-cols-1 gap-5 md:gap-1'>
+						<div class='fraasegn-extra-inner grid grid-cols-1 gap-2'>
 							{fraasegnerMetadata.slice(VISIBLE_COUNT).map((stmt, j) => (
-								<div id={`stmt-${j + VISIBLE_COUNT}`} class='program-link bg-[var(--light-blue)]' style={`--i: ${j}`}>
+								<div id={`stmt-${j + VISIBLE_COUNT}`} class='program-link bg-[var(--light-blue)] rounded-standard' style={`--i: ${j}`}>
 									<p class='px-5 text-left text-body text-white'>{stmt.title}</p>
 								</div>
 							))}
@@ -166,6 +178,33 @@ const politiskProgram = [
 				}
 			}
 		});
+	}
+
+	// Desktop: the sticky "Fråsegner" heading may follow the reader down, but
+	// only as far as the last statement on show, not down to the toggle button.
+	// Sticky stops at the end of its grid row, so a bottom margin equal to the
+	// space between the last statement and the row's end makes it stop earlier.
+	const stickyHeading = nav?.parentElement?.querySelector<HTMLElement>('.sticky-center');
+	const visibleList = nav?.querySelector('.grid');
+	if (nav && stickyHeading && visibleList) {
+		const desktop = window.matchMedia('(width >= 48rem)');
+		const updateStop = () => {
+			if (!desktop.matches) {
+				stickyHeading.style.marginBottom = '';
+				return;
+			}
+			// The expanding block grows from zero height, so its bottom tracks the
+			// last statement on show, also while it animates open or shut.
+			const lastBottom = Math.max(
+				visibleList.getBoundingClientRect().bottom,
+				extra?.getBoundingClientRect().bottom ?? 0,
+			);
+			const rowBottom = nav.parentElement!.getBoundingClientRect().bottom;
+			stickyHeading.style.marginBottom = `${Math.max(0, Math.round(rowBottom - lastBottom))}px`;
+		};
+		updateStop();
+		new ResizeObserver(updateStop).observe(nav);
+		desktop.addEventListener('change', updateStop);
 	}
 </script>
 
@@ -229,14 +268,9 @@ const politiskProgram = [
 	.fraasegn-nav[data-expanded='true'] .fraasegn-extra {
 		grid-template-rows: 1fr;
 	}
-	/* Same gap as the visible list above, only once opened */
+	/* Same gap as the visible list above (gap-2), only once opened */
 	.fraasegn-nav[data-expanded='true'] .fraasegn-extra-inner {
-		padding-top: 1.25rem;
-	}
-	@media (min-width: 768px) {
-		.fraasegn-nav[data-expanded='true'] .fraasegn-extra-inner {
-			padding-top: 0.25rem;
-		}
+		padding-top: 0.5rem;
 	}
 
 	.fraasegn-item {

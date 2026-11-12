@@ -39,7 +39,7 @@ const listRanges = Object.fromEntries(lists.map((list) => [list.key, { start: li
 const defaultList = lists[0].key
 ---
 
-<Layout class='bg-[var(--light-blue)]'>
+<Layout currentPage='/songheftet' class='bg-[var(--light-blue)]'>
     <div class='flex flex-col items-center px-5'>
         <h1 class='page-title text-headline text-center pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
         <div id='list-toggle' class='list-toggle' role='group' aria-label='Vel songliste' data-active={defaultList}>

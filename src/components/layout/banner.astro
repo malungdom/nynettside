@@ -44,7 +44,7 @@ import Button from '../ui/button.astro'
     <div class='hidden md:flex md:pr-10 md:gap-10 items-center'>
         <nav class='flex flex-row gap-10'>
             {pages.map((page) => (
-                <a href={page.path} class='link link-ver'>{page.name}</a>
+                <a href={page.path}><p class:list={[`text-white text-subhead font-medium`, {'underline decoration-2': pagePath == page.path}]} >{page.name}</p></a>
             ))}
         </nav>
         <div id='banner-button' class='banner-button cta-hidden no-transition'>
@@ -160,18 +160,6 @@ import Button from '../ui/button.astro'
         font-weight: 500;
         text-decoration: none;
         transform: translate(0px, 0px);
-        transition: transform 0.2s;
-    }
-
-    .link:hover {
-        color: #ddd;
-        transform: translate(10px);
-        transition: transform 0.2s;
-    }
-
-    .link-ver:hover {
-        color: #ddd;
-        transform: translate(0px, -5px);
         transition: transform 0.2s;
     }
 
