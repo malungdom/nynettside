@@ -19,7 +19,13 @@ jobs:
           node-version: 24
           cache: npm
 
-      - run: npm ci
+      - uses: actions/cache@v4
+        id: nm
+        with:
+          path: node_modules
+          key: nm-${{ runner.os }}-node22-${{ hashFiles('package-lock.json') }}
+      - if: steps.nm.outputs.cache-hit != 'true'
+        run: npm ci --no-audit --no-fund
       - run: npm run build
 
       - name: Set up SSH
