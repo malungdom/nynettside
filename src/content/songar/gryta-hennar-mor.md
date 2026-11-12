@@ -24,7 +24,6 @@ No er det lengje sidan
 og mange år er gått
 Far og mor er borte burte,
 si kvile har dei fått
-
 Men ennå kan eg høyra
 ståket kring vårt bord
 Då alle skulle mettast
