@@ -42,19 +42,16 @@ const defaultList = lists[0].key
 <Layout currentPage='/songheftet' class='bg-[var(--light-blue)]'>
     <div class='flex flex-col items-center px-5'>
         <h1 class='page-title text-headline text-center pt-[var(--hl-con-gap)]'>Songheftet til Norsk Målungdom</h1>
-        <div id='list-toggle' class='list-toggle' role='group' aria-label='Vel songliste' data-active={defaultList}>
-            <span class='list-toggle-pill' aria-hidden='true'></span>
+        <div id='list-toggle' class='list-toggle rounded-standard' role='group' aria-label='Vel songliste' data-active={defaultList}>
+            <span class='list-toggle-highlight rounded-standard' aria-hidden='true'></span>
             {lists.map((list) => (
-                <button type='button' class='list-toggle-option' data-list={list.key} aria-pressed={list.key === defaultList ? 'true' : 'false'}>
+                <button type='button' class='list-toggle-option rounded-standard' data-list={list.key} aria-pressed={list.key === defaultList ? 'true' : 'false'}>
                     {list.label}
                 </button>
             ))}
         </div>
     </div>
     <section class='overflow-x-clip'>
-        <a href='#song-anchor' data-jump-to-song class='button jump-mobile flex items-center justify-center sticky top-[100svh] -translate-y-2/3 z-100 md:hidden bg-[var(--main-green)]'>
-            <p class='text-white text-subhead'>Gå til songteksten</p>
-        </a>
         <div class='margined grid text-center items-center gap-[var(--hl-con-gap)]'>
             <div class='card card-grey grid grid-cols-2 md:grid-cols-5 rounded-2xl p-3 md:p-10'>
                 <div class='col-span-2 md:col-span-5 grid grid-cols-1 md:grid-cols-5'>
@@ -80,8 +77,14 @@ const defaultList = lists[0].key
                     </div>
                 ))}
             </div>
-		<div id='song-anchor' class='max-md:pt-[15svh]'></div>
+		<div id='song-anchor'></div>
         </div>
+        <!-- Mobile shortcut. It sits at the end of the section and sticks to the
+             bottom of the visible page, so it follows the reader through the
+             catalogue and moves with the phone's toolbars as they slide in and out. -->
+        <a href='#song-anchor' data-jump-to-song class='button jump-mobile flex items-center justify-center sticky z-100 md:hidden bg-[var(--main-green)]'>
+            <p class='text-white text-subhead'>Gå til songteksten</p>
+        </a>
     </section>
     <section id='song-section' class='bg-[var(--light-blue)] bg-white py-[var(--hl-con-gap)]'>
         <div class='margined text-center'>
@@ -104,33 +107,31 @@ const defaultList = lists[0].key
 </Layout>
 
 <style>
-    /* Two-option switch with a pill that slides to the active side */
+    /* Two-option switch with a highlight that slides to the active side.
+       Corner rounding comes from the rounded-standard class in the markup. */
     .list-toggle {
         position: relative;
         display: inline-grid;
         grid-template-columns: 1fr 1fr;
         margin-top: 1.25rem;
         padding: 4px;
-        border-radius: 999px;
         background-color: #fff;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
-    .list-toggle-pill {
+    .list-toggle-highlight {
         position: absolute;
         inset: 4px auto 4px 4px;
         width: calc(50% - 4px);
-        border-radius: 999px;
         background-color: var(--main-blue);
         transition: translate 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
-    .list-toggle[data-active='oliver'] .list-toggle-pill {
+    .list-toggle[data-active='oliver'] .list-toggle-highlight {
         translate: 100% 0;
     }
     .list-toggle-option {
         position: relative;
         z-index: 1;
         padding: 0.5rem 1.1rem;
-        border-radius: 999px;
         font-size: var(--font-body);
         font-weight: 600;
         white-space: nowrap;
@@ -149,7 +150,7 @@ const defaultList = lists[0].key
         cursor: wait;
     }
     @media (prefers-reduced-motion: reduce) {
-        .list-toggle-pill,
+        .list-toggle-highlight,
         .list-toggle-option {
             transition: none;
         }
@@ -212,10 +213,16 @@ const defaultList = lists[0].key
         .content :global(p) {
             font-size: 1rem;
         }
-        /* Sticky shortcut: full width minus the page gutter */
+        /* Plain anchor jump (no JavaScript): stop clear of the fixed banner */
+        #song-anchor {
+            scroll-margin-top: calc(var(--banner-h-mobile) + 1rem);
+        }
+        /* Sticky shortcut: a few pixels from the sides and from the bottom of the
+           visible page. bottom is measured from the visible edge, so it tracks the
+           browser toolbars; the safe-area inset keeps it above a home indicator. */
         .button.jump-mobile {
-            /* negative bottom margin so the sticky button takes no space in the flow */
-            margin: 0 1.25rem -56px;
+            bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+            margin: 12px 6px 0;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
     }
